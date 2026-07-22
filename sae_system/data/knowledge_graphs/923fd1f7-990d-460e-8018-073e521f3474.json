@@ -1,0 +1,1004 @@
+{
+  "student_id": "923fd1f7-990d-460e-8018-073e521f3474",
+  "last_saved": "2026-05-18T08:43:57.652745",
+  "nodes": [
+    {
+      "concept_id": "agile",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "introduction_to_devops",
+      "week": 1
+    },
+    {
+      "concept_id": "continuous_integration",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "devops_fundamentals",
+      "week": 2
+    },
+    {
+      "concept_id": "version_control",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "introduction_to_devops",
+      "week": 1
+    },
+    {
+      "concept_id": "collaboration",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "introduction_to_devops",
+      "week": 1
+    },
+    {
+      "concept_id": "agile_methodologies",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "devops_fundamentals",
+      "week": 2
+    },
+    {
+      "concept_id": "version_control_systems",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "devops_fundamentals",
+      "week": 2
+    },
+    {
+      "concept_id": "collaboration_between_teams",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "devops_fundamentals",
+      "week": 2
+    },
+    {
+      "concept_id": "agile_principles",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "agile_methodologies",
+      "week": 3
+    },
+    {
+      "concept_id": "scrum_framework",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "agile_methodologies",
+      "week": 3
+    },
+    {
+      "concept_id": "kanban_methodology",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "agile_methodologies",
+      "week": 3
+    },
+    {
+      "concept_id": "sprint_planning",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "agile_methodologies",
+      "week": 3
+    },
+    {
+      "concept_id": "docker_hub",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "containerization_with_docker",
+      "week": 4
+    },
+    {
+      "concept_id": "docker_images",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "containerization_with_docker",
+      "week": 4
+    },
+    {
+      "concept_id": "docker_containers",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "containerization_with_docker",
+      "week": 4
+    },
+    {
+      "concept_id": "docker_volumes",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "containerization_with_docker",
+      "week": 4
+    },
+    {
+      "concept_id": "metrics",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "monitoring_and_logging",
+      "week": 6
+    },
+    {
+      "concept_id": "log_analysis",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "monitoring_and_logging",
+      "week": 6
+    },
+    {
+      "concept_id": "logging_tools",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "monitoring_and_logging",
+      "week": 6
+    },
+    {
+      "concept_id": "troubleshooting",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "monitoring_and_logging",
+      "week": 6
+    },
+    {
+      "concept_id": "secure_coding",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "security_in_devops",
+      "week": 7
+    },
+    {
+      "concept_id": "vulnerability_management",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "security_in_devops",
+      "week": 7
+    },
+    {
+      "concept_id": "compliance",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "security_in_devops",
+      "week": 7
+    },
+    {
+      "concept_id": "identity_and_access",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "security_in_devops",
+      "week": 7
+    },
+    {
+      "concept_id": "service_models",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "cloud_computing_basics",
+      "week": 8
+    },
+    {
+      "concept_id": "deployment_models",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "cloud_computing_basics",
+      "week": 8
+    },
+    {
+      "concept_id": "cloud_security",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "cloud_computing_basics",
+      "week": 8
+    },
+    {
+      "concept_id": "cloud_cost_model",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "cloud_computing_basics",
+      "week": 8
+    },
+    {
+      "concept_id": "writing_shell_scripts",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "scripting_for_automation",
+      "week": 9
+    },
+    {
+      "concept_id": "using_python_for_automation",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "scripting_for_automation",
+      "week": 9
+    },
+    {
+      "concept_id": "introduction_to_ansible",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "scripting_for_automation",
+      "week": 9
+    },
+    {
+      "concept_id": "error_handling_in_scripting",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "scripting_for_automation",
+      "week": 9
+    },
+    {
+      "concept_id": "git",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "version_control_systems",
+      "week": 10
+    },
+    {
+      "concept_id": "svn",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "version_control_systems",
+      "week": 10
+    },
+    {
+      "concept_id": "branching_and_merging",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "version_control_systems",
+      "week": 10
+    },
+    {
+      "concept_id": "change_tracking",
+      "domain": "DevOps",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "version_control_systems",
+      "week": 10
+    },
+    {
+      "concept_id": "supervised_learning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "unsupervised_learning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "introduction_to_ml",
+      "week": 1
+    },
+    {
+      "concept_id": "neural_networks",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "deep_learning",
+      "week": 4
+    },
+    {
+      "concept_id": "deep_learning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "introduction_to_ml",
+      "week": 1
+    },
+    {
+      "concept_id": "regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "supervised_learning",
+      "week": 2
+    },
+    {
+      "concept_id": "classification",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "supervised_learning",
+      "week": 2
+    },
+    {
+      "concept_id": "overfitting",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "underfitting",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "clustering",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "unsupervised_learning",
+      "week": 3
+    },
+    {
+      "concept_id": "dimensionality_reduction",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "feature_engineering",
+      "week": 9
+    },
+    {
+      "concept_id": "density_estimation",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "unsupervised_learning",
+      "week": 3
+    },
+    {
+      "concept_id": "kmeans",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "unsupervised_learning",
+      "week": 3
+    },
+    {
+      "concept_id": "hierarchical_clustering",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "clustering_techniques",
+      "week": 8
+    },
+    {
+      "concept_id": "principal_component_analysis",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "unsupervised_learning",
+      "week": 3
+    },
+    {
+      "concept_id": "convolutional_neural_networks",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "deep_learning",
+      "week": 4
+    },
+    {
+      "concept_id": "recurrent_neural_networks",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "deep_learning",
+      "week": 4
+    },
+    {
+      "concept_id": "transfer_learning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "deep_learning",
+      "week": 4
+    },
+    {
+      "concept_id": "backpropagation",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "neural_networks",
+      "week": 5
+    },
+    {
+      "concept_id": "activation_functions",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "neural_networks",
+      "week": 5
+    },
+    {
+      "concept_id": "forward_pass",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "neural_networks",
+      "week": 5
+    },
+    {
+      "concept_id": "convolutional_layers",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "neural_networks",
+      "week": 5
+    },
+    {
+      "concept_id": "linear_regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "regression_analysis",
+      "week": 6
+    },
+    {
+      "concept_id": "logistic_regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "regression_analysis",
+      "week": 6
+    },
+    {
+      "concept_id": "ridge_regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "regression_analysis",
+      "week": 6
+    },
+    {
+      "concept_id": "lasso_regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "regression_analysis",
+      "week": 6
+    },
+    {
+      "concept_id": "binary_classification",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "multi_class_classification",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "k-means",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "clustering_techniques",
+      "week": 8
+    },
+    {
+      "concept_id": "dbscan",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "clustering_techniques",
+      "week": 8
+    },
+    {
+      "concept_id": "expectation_maximization",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "clustering_techniques",
+      "week": 8
+    },
+    {
+      "concept_id": "feature_selection",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "feature_engineering",
+      "week": 9
+    },
+    {
+      "concept_id": "feature_extraction",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "feature_engineering",
+      "week": 9
+    },
+    {
+      "concept_id": "data_normalization",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "feature_engineering",
+      "week": 9
+    },
+    {
+      "concept_id": "evaluation_metrics",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "model_evaluation",
+      "week": 10
+    },
+    {
+      "concept_id": "cross-validation",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "model_evaluation",
+      "week": 10
+    },
+    {
+      "concept_id": "overfitting_and_underfitting",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "model_evaluation",
+      "week": 10
+    },
+    {
+      "concept_id": "hyperparameter_tuning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "model_evaluation",
+      "week": 10
+    }
+  ],
+  "edges": [
+    {
+      "from_concept": "agile",
+      "to_concept": "continuous_integration"
+    },
+    {
+      "from_concept": "continuous_integration",
+      "to_concept": "version_control"
+    },
+    {
+      "from_concept": "continuous_integration",
+      "to_concept": "version_control_systems"
+    },
+    {
+      "from_concept": "version_control",
+      "to_concept": "collaboration"
+    },
+    {
+      "from_concept": "collaboration",
+      "to_concept": "agile_methodologies"
+    },
+    {
+      "from_concept": "collaboration",
+      "to_concept": "agile_principles"
+    },
+    {
+      "from_concept": "agile_methodologies",
+      "to_concept": "continuous_integration"
+    },
+    {
+      "from_concept": "version_control_systems",
+      "to_concept": "collaboration_between_teams"
+    },
+    {
+      "from_concept": "collaboration_between_teams",
+      "to_concept": "agile_principles"
+    },
+    {
+      "from_concept": "collaboration_between_teams",
+      "to_concept": "docker_hub"
+    },
+    {
+      "from_concept": "agile_principles",
+      "to_concept": "scrum_framework"
+    },
+    {
+      "from_concept": "scrum_framework",
+      "to_concept": "kanban_methodology"
+    },
+    {
+      "from_concept": "kanban_methodology",
+      "to_concept": "sprint_planning"
+    },
+    {
+      "from_concept": "sprint_planning",
+      "to_concept": "docker_hub"
+    },
+    {
+      "from_concept": "docker_hub",
+      "to_concept": "docker_images"
+    },
+    {
+      "from_concept": "docker_images",
+      "to_concept": "docker_containers"
+    },
+    {
+      "from_concept": "docker_containers",
+      "to_concept": "docker_volumes"
+    },
+    {
+      "from_concept": "docker_volumes",
+      "to_concept": "metrics"
+    },
+    {
+      "from_concept": "metrics",
+      "to_concept": "log_analysis"
+    },
+    {
+      "from_concept": "log_analysis",
+      "to_concept": "logging_tools"
+    },
+    {
+      "from_concept": "logging_tools",
+      "to_concept": "troubleshooting"
+    },
+    {
+      "from_concept": "troubleshooting",
+      "to_concept": "secure_coding"
+    },
+    {
+      "from_concept": "troubleshooting",
+      "to_concept": "service_models"
+    },
+    {
+      "from_concept": "secure_coding",
+      "to_concept": "vulnerability_management"
+    },
+    {
+      "from_concept": "vulnerability_management",
+      "to_concept": "compliance"
+    },
+    {
+      "from_concept": "compliance",
+      "to_concept": "identity_and_access"
+    },
+    {
+      "from_concept": "identity_and_access",
+      "to_concept": "service_models"
+    },
+    {
+      "from_concept": "identity_and_access",
+      "to_concept": "writing_shell_scripts"
+    },
+    {
+      "from_concept": "service_models",
+      "to_concept": "deployment_models"
+    },
+    {
+      "from_concept": "deployment_models",
+      "to_concept": "cloud_security"
+    },
+    {
+      "from_concept": "cloud_security",
+      "to_concept": "cloud_cost_model"
+    },
+    {
+      "from_concept": "cloud_cost_model",
+      "to_concept": "writing_shell_scripts"
+    },
+    {
+      "from_concept": "cloud_cost_model",
+      "to_concept": "git"
+    },
+    {
+      "from_concept": "writing_shell_scripts",
+      "to_concept": "using_python_for_automation"
+    },
+    {
+      "from_concept": "using_python_for_automation",
+      "to_concept": "introduction_to_ansible"
+    },
+    {
+      "from_concept": "introduction_to_ansible",
+      "to_concept": "error_handling_in_scripting"
+    },
+    {
+      "from_concept": "error_handling_in_scripting",
+      "to_concept": "git"
+    },
+    {
+      "from_concept": "git",
+      "to_concept": "svn"
+    },
+    {
+      "from_concept": "svn",
+      "to_concept": "branching_and_merging"
+    },
+    {
+      "from_concept": "branching_and_merging",
+      "to_concept": "change_tracking"
+    },
+    {
+      "from_concept": "supervised_learning",
+      "to_concept": "unsupervised_learning"
+    },
+    {
+      "from_concept": "supervised_learning",
+      "to_concept": "binary_classification"
+    },
+    {
+      "from_concept": "unsupervised_learning",
+      "to_concept": "neural_networks"
+    },
+    {
+      "from_concept": "neural_networks",
+      "to_concept": "deep_learning"
+    },
+    {
+      "from_concept": "neural_networks",
+      "to_concept": "convolutional_neural_networks"
+    },
+    {
+      "from_concept": "deep_learning",
+      "to_concept": "regression"
+    },
+    {
+      "from_concept": "deep_learning",
+      "to_concept": "clustering"
+    },
+    {
+      "from_concept": "regression",
+      "to_concept": "classification"
+    },
+    {
+      "from_concept": "classification",
+      "to_concept": "overfitting"
+    },
+    {
+      "from_concept": "overfitting",
+      "to_concept": "underfitting"
+    },
+    {
+      "from_concept": "underfitting",
+      "to_concept": "clustering"
+    },
+    {
+      "from_concept": "underfitting",
+      "to_concept": "k-means"
+    },
+    {
+      "from_concept": "underfitting",
+      "to_concept": "dimensionality_reduction"
+    },
+    {
+      "from_concept": "clustering",
+      "to_concept": "dimensionality_reduction"
+    },
+    {
+      "from_concept": "dimensionality_reduction",
+      "to_concept": "density_estimation"
+    },
+    {
+      "from_concept": "dimensionality_reduction",
+      "to_concept": "feature_selection"
+    },
+    {
+      "from_concept": "density_estimation",
+      "to_concept": "kmeans"
+    },
+    {
+      "from_concept": "kmeans",
+      "to_concept": "hierarchical_clustering"
+    },
+    {
+      "from_concept": "hierarchical_clustering",
+      "to_concept": "principal_component_analysis"
+    },
+    {
+      "from_concept": "hierarchical_clustering",
+      "to_concept": "dbscan"
+    },
+    {
+      "from_concept": "principal_component_analysis",
+      "to_concept": "neural_networks"
+    },
+    {
+      "from_concept": "principal_component_analysis",
+      "to_concept": "backpropagation"
+    },
+    {
+      "from_concept": "convolutional_neural_networks",
+      "to_concept": "recurrent_neural_networks"
+    },
+    {
+      "from_concept": "recurrent_neural_networks",
+      "to_concept": "transfer_learning"
+    },
+    {
+      "from_concept": "transfer_learning",
+      "to_concept": "backpropagation"
+    },
+    {
+      "from_concept": "transfer_learning",
+      "to_concept": "linear_regression"
+    },
+    {
+      "from_concept": "backpropagation",
+      "to_concept": "activation_functions"
+    },
+    {
+      "from_concept": "activation_functions",
+      "to_concept": "forward_pass"
+    },
+    {
+      "from_concept": "forward_pass",
+      "to_concept": "convolutional_layers"
+    },
+    {
+      "from_concept": "convolutional_layers",
+      "to_concept": "linear_regression"
+    },
+    {
+      "from_concept": "convolutional_layers",
+      "to_concept": "supervised_learning"
+    },
+    {
+      "from_concept": "linear_regression",
+      "to_concept": "logistic_regression"
+    },
+    {
+      "from_concept": "logistic_regression",
+      "to_concept": "ridge_regression"
+    },
+    {
+      "from_concept": "ridge_regression",
+      "to_concept": "lasso_regression"
+    },
+    {
+      "from_concept": "lasso_regression",
+      "to_concept": "supervised_learning"
+    },
+    {
+      "from_concept": "lasso_regression",
+      "to_concept": "k-means"
+    },
+    {
+      "from_concept": "binary_classification",
+      "to_concept": "multi_class_classification"
+    },
+    {
+      "from_concept": "multi_class_classification",
+      "to_concept": "overfitting"
+    },
+    {
+      "from_concept": "k-means",
+      "to_concept": "hierarchical_clustering"
+    },
+    {
+      "from_concept": "dbscan",
+      "to_concept": "expectation_maximization"
+    },
+    {
+      "from_concept": "expectation_maximization",
+      "to_concept": "dimensionality_reduction"
+    },
+    {
+      "from_concept": "feature_selection",
+      "to_concept": "feature_extraction"
+    },
+    {
+      "from_concept": "feature_extraction",
+      "to_concept": "data_normalization"
+    },
+    {
+      "from_concept": "data_normalization",
+      "to_concept": "evaluation_metrics"
+    },
+    {
+      "from_concept": "evaluation_metrics",
+      "to_concept": "cross-validation"
+    },
+    {
+      "from_concept": "cross-validation",
+      "to_concept": "overfitting_and_underfitting"
+    },
+    {
+      "from_concept": "overfitting_and_underfitting",
+      "to_concept": "hyperparameter_tuning"
+    }
+  ]
+}

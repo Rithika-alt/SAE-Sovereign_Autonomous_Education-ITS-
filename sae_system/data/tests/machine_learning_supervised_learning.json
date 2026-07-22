@@ -1,0 +1,134 @@
+[
+  {
+    "question_id": "q1",
+    "question": "What does supervised learning require?",
+    "type": "mcq",
+    "options": [
+      "Labelled training data with input-output pairs",
+      "Only unlabelled data with no target variable",
+      "A reward signal from the environment",
+      "No data at all \u2014 it learns from rules"
+    ],
+    "correct_answer": "Labelled training data with input-output pairs",
+    "explanation": "Supervised learning trains on labelled examples where the correct output is known.",
+    "marks": 2,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q2",
+    "question": "What is the primary goal of regression in supervised learning?",
+    "type": "mcq",
+    "options": [
+      "To create a mathematical model that can accurately predict the value of the target variable, given input values for the predictors.",
+      "To establish a relationship between the input variables and the target variable without making predictions.",
+      "To identify patterns in the data that can be used to make decisions.",
+      "To optimize marketing strategies based on historical sales data."
+    ],
+    "correct_answer": "To create a mathematical model that can accurately predict the value of the target variable, given input values for the predictors.",
+    "explanation": "Regression aims to establish a mathematical relationship between the input variables and the target variable.",
+    "marks": 2,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q3",
+    "question": "What is the core formula for linear regression in supervised learning?",
+    "type": "mcq",
+    "options": [
+      "Y = \u03b20 + \u03b5",
+      "Y = \u03b21X + \u03b5",
+      "Y = \u03b20 + \u03b21X + \u03b5",
+      "Y = \u03b20 + \u03b21X + \u03b22"
+    ],
+    "correct_answer": "Y = \u03b20 + \u03b21X + \u03b5",
+    "explanation": "The core formula for linear regression is Y = \u03b20 + \u03b21X + \u03b5 where Y is the predicted output, X is the input feature, and \u03b5 is the error term.",
+    "marks": 2,
+    "difficulty": "hard"
+  },
+  {
+    "question_id": "q4",
+    "question": "True or False: Supervised learning can be used for classification tasks?",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True",
+    "explanation": "Supervised learning is often used for classification tasks where the target variable has a finite number of classes.",
+    "marks": 1,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q5",
+    "question": "What is the main advantage of using regression in supervised learning?",
+    "type": "short_answer",
+    "options": [],
+    "correct_answer": "Refer to lesson material for the model answer.",
+    "explanation": "Regression allows for predictions to be made based on historical data, enabling organizations to make informed decisions and drive revenue growth.",
+    "marks": 5,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q6",
+    "question": "True or False: Supervised learning requires unlabelled data?",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "False",
+    "explanation": "Supervised learning trains on labelled examples where the correct output is known.",
+    "marks": 1,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q7",
+    "question": "What is the core principle of regression in supervised learning?",
+    "type": "mcq",
+    "options": [
+      "To minimize the difference between the predicted and actual values.",
+      "To establish a mathematical relationship between the input variables and the target variable without making predictions.",
+      "To identify patterns in the data that can be used to make decisions.",
+      "To optimize marketing strategies based on historical sales data."
+    ],
+    "correct_answer": "To minimize the difference between the predicted and actual values.",
+    "explanation": "Regression aims to create a mathematical model that accurately predicts the value of the target variable, given input values for the predictors.",
+    "marks": 2,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q8",
+    "question": "True or False: Regression is only used for regression tasks?",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "False",
+    "explanation": "Regression can be used for classification tasks as well, particularly when the target variable has a continuous output.",
+    "marks": 1,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q9",
+    "question": "What is the role of coefficients (weights) in regression?",
+    "type": "short_answer",
+    "options": [],
+    "correct_answer": "Refer to lesson material for the model answer.",
+    "explanation": "Coefficients are used to estimate the relationship between the input variables and the target variable, allowing for predictions to be made.",
+    "marks": 5,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q10",
+    "question": "True or False: Supervised learning can handle missing values in the data?",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "False",
+    "explanation": "Supervised learning typically requires complete and accurate data to train the model effectively.",
+    "marks": 1,
+    "difficulty": "easy"
+  }
+]

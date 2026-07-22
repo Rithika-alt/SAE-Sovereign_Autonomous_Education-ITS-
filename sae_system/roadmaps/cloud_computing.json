@@ -1,0 +1,282 @@
+{
+  "domain": "Cloud Computing",
+  "total_weeks": 10,
+  "modules": [
+    {
+      "week": 1,
+      "module_id": "cloud_computing_fundamentals",
+      "title": "Cloud Computing Fundamentals",
+      "description": "Introduction to cloud computing, types of clouds, cloud deployment models, and cloud service models.",
+      "concepts": [
+        "IaaS",
+        "PaaS",
+        "SaaS",
+        "Cloud Service Models",
+        "Cloud Deployment Models"
+      ],
+      "prerequisites": [],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Infrastructure as a service",
+          "summary": "Infrastructure as a service (IaaS) is a cloud computing service model where a cloud services vendor provides computing resources such as storage, network, servers, and virtualization. This service frees users from maintaining their own data center, but they must install and maintain the operating system and application software. IaaS provides users with high-level APIs to control details of the underlying network infrastructure, such as backup, data partitioning, scaling, security, and physical computing resources. Services can be scaled on-demand by the user. According to the Internet Engineering Task Force (IETF), such infrastructure is the most basic cloud-service model. IaaS can be hosted in a public cloud, a private cloud, or a hybrid cloud.",
+          "url": "https://en.wikipedia.org/wiki/Infrastructure_as_a_service"
+        },
+        {
+          "title": "Platform as a service",
+          "summary": "Platform as a service (PaaS) or application platform as a service (aPaaS) or platform-based service is a cloud computing service model where users provision, instantiate, run and manage a modular bundle of a computing platform and applications, without the complexity of building and maintaining the infrastructure associated with developing and launching application(s), and to allow developers to create, develop, and package such software bundles.",
+          "url": "https://en.wikipedia.org/wiki/Platform_as_a_service"
+        },
+        {
+          "title": "Software as a service",
+          "summary": "Software as a service is a cloud computing service model in which a provider delivers application software to clients while managing the required physical and software resources. SaaS applications are accessed via either a web application or locally-installed software. Unlike other software delivery models, SaaS separates \"the possession and ownership of software from its use.\" SaaS use began around 2000, and by 2023 was the main form of software application deployment.",
+          "url": "https://en.wikipedia.org/wiki/Software_as_a_service"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "module_id": "cloud_service_models",
+      "title": "Cloud Service Models",
+      "description": "In-depth exploration of cloud service models, including IaaS, PaaS, and SaaS.",
+      "concepts": [
+        "IaaS",
+        "PaaS",
+        "SaaS",
+        "Service Level Agreement (SLA)",
+        "Multi-Tenancy"
+      ],
+      "prerequisites": [
+        "cloud_computing_fundamentals"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Infrastructure as a service",
+          "summary": "Infrastructure as a service (IaaS) is a cloud computing service model where a cloud services vendor provides computing resources such as storage, network, servers, and virtualization. This service frees users from maintaining their own data center, but they must install and maintain the operating system and application software. IaaS provides users with high-level APIs to control details of the underlying network infrastructure, such as backup, data partitioning, scaling, security, and physical computing resources. Services can be scaled on-demand by the user. According to the Internet Engineering Task Force (IETF), such infrastructure is the most basic cloud-service model. IaaS can be hosted in a public cloud, a private cloud, or a hybrid cloud.",
+          "url": "https://en.wikipedia.org/wiki/Infrastructure_as_a_service"
+        },
+        {
+          "title": "Platform as a service",
+          "summary": "Platform as a service (PaaS) or application platform as a service (aPaaS) or platform-based service is a cloud computing service model where users provision, instantiate, run and manage a modular bundle of a computing platform and applications, without the complexity of building and maintaining the infrastructure associated with developing and launching application(s), and to allow developers to create, develop, and package such software bundles.",
+          "url": "https://en.wikipedia.org/wiki/Platform_as_a_service"
+        },
+        {
+          "title": "Software as a service",
+          "summary": "Software as a service is a cloud computing service model in which a provider delivers application software to clients while managing the required physical and software resources. SaaS applications are accessed via either a web application or locally-installed software. Unlike other software delivery models, SaaS separates \"the possession and ownership of software from its use.\" SaaS use began around 2000, and by 2023 was the main form of software application deployment.",
+          "url": "https://en.wikipedia.org/wiki/Software_as_a_service"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "module_id": "cloud_deployment_models",
+      "title": "Cloud Deployment Models",
+      "description": "Understanding of cloud deployment models, including Public Cloud, Private Cloud, and Hybrid Cloud.",
+      "concepts": [
+        "Public Cloud",
+        "Private Cloud",
+        "Hybrid Cloud",
+        "Multi-tenancy"
+      ],
+      "prerequisites": [
+        "cloud_computing_fundamentals"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Cloud computing",
+          "summary": "Cloud computing is defined by the International Organization for Standardization (ISO) as \"a paradigm for enabling network access to a scalable and elastic pool of shareable physical or virtual resources with self-service provisioning and administration on demand\". It is commonly referred to as \"the cloud\".",
+          "url": "https://en.wikipedia.org/wiki/Cloud_computing"
+        },
+        {
+          "title": "Cloud computing",
+          "summary": "Cloud computing is defined by the International Organization for Standardization (ISO) as \"a paradigm for enabling network access to a scalable and elastic pool of shareable physical or virtual resources with self-service provisioning and administration on demand\". It is commonly referred to as \"the cloud\".",
+          "url": "https://en.wikipedia.org/wiki/Cloud_computing"
+        },
+        {
+          "title": "Cloud computing",
+          "summary": "Cloud computing is defined by the International Organization for Standardization (ISO) as \"a paradigm for enabling network access to a scalable and elastic pool of shareable physical or virtual resources with self-service provisioning and administration on demand\". It is commonly referred to as \"the cloud\".",
+          "url": "https://en.wikipedia.org/wiki/Cloud_computing"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "module_id": "cloud_platform_as_a_service",
+      "title": "Cloud Platform as a Service (PaaS)",
+      "description": "Exploring the characteristics and benefits of cloud PaaS, including development tools and deployment options.",
+      "concepts": [
+        "Cloud PaaS",
+        "Development Tools",
+        "Deployment Options"
+      ],
+      "prerequisites": [
+        "cloud_computing_fundamentals",
+        "cloud_service_models"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 5,
+      "module_id": "cloud_Infrastructure_as_a_Service",
+      "title": "Cloud Infrastructure as a Service (IaaS)",
+      "description": "Understanding the characteristics and benefits of cloud IaaS, including virtualization and storage options.",
+      "concepts": [
+        "Cloud IaaS",
+        "Virtualization",
+        "Storage Options"
+      ],
+      "prerequisites": [
+        "cloud_computing_fundamentals",
+        "cloud_service_models",
+        "cloud_deployment_models"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 6,
+      "module_id": "cloud_storage_solutions",
+      "title": "Cloud Storage Solutions",
+      "description": "Exploring the different types of cloud storage, including object storage and block storage.",
+      "concepts": [
+        "Object Storage",
+        "Block Storage",
+        "Cloud Storage Solutions"
+      ],
+      "prerequisites": [
+        "cloud_computing_fundamentals",
+        "cloud_service_models",
+        "cloud_deployment_models",
+        "cloud_Infrastructure_as_a_Service"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 7,
+      "module_id": "cloud_security_and_compliance",
+      "title": "Cloud Security and Compliance",
+      "description": "Understanding the importance of security and compliance in cloud computing, including data encryption and access controls.",
+      "concepts": [
+        "Data Encryption",
+        "Access Controls",
+        "Security and Compliance"
+      ],
+      "prerequisites": [
+        "cloud_computing_fundamentals",
+        "cloud_service_models",
+        "cloud_deployment_models",
+        "cloud_Infrastructure_as_a_Service",
+        "cloud_storage_solutions"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 8,
+      "module_id": "cloud_migration_and_management",
+      "title": "Cloud Migration and Management",
+      "description": "Exploring the process of migrating to the cloud, including assessment, planning, and management.",
+      "concepts": [
+        "Cloud Migration",
+        "Assessment",
+        "Planning",
+        "Management"
+      ],
+      "prerequisites": [
+        "cloud_computing_fundamentals",
+        "cloud_service_models",
+        "cloud_deployment_models",
+        "cloud_Infrastructure_as_a_Service",
+        "cloud_storage_solutions",
+        "cloud_security_and_compliance"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": [
+        {
+          "title": "Assessment",
+          "summary": "Assessment may refer to:",
+          "url": "https://en.wikipedia.org/wiki/Assessment"
+        },
+        {
+          "title": "Planning",
+          "summary": "Planning is the process of thinking regarding the activities required to achieve a desired goal. Planning is based on foresight, the fundamental capacity for mental time travel. Some researchers regard the evolution of forethought - the capacity to think ahead - as a prime mover in human evolution.\nPlanning is a fundamental property of intelligent behavior. It involves the use of logic and imagination to visualize not only a desired result, but the steps necessary to achieve that result.",
+          "url": "https://en.wikipedia.org/wiki/Planning"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "module_id": "cloud_cost_optimization",
+      "title": "Cloud Cost Optimization",
+      "description": "Understanding the importance of cost optimization in cloud computing, including pricing models and cost management strategies.",
+      "concepts": [
+        "Pricing Models",
+        "Cost Management Strategies"
+      ],
+      "prerequisites": [
+        "cloud_computing_fundamentals",
+        "cloud_service_models",
+        "cloud_deployment_models",
+        "cloud_Infrastructure_as_a_Service",
+        "cloud_storage_solutions",
+        "cloud_security_and_compliance",
+        "cloud_migration_and_management"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": []
+    },
+    {
+      "week": 10,
+      "module_id": "cloud_architecture_and_design",
+      "title": "Cloud Architecture and Design",
+      "description": "Exploring the principles of cloud architecture, including scalability, reliability, and performance.",
+      "concepts": [
+        "Scalability",
+        "Reliability",
+        "Performance"
+      ],
+      "prerequisites": [
+        "cloud_computing_fundamentals",
+        "cloud_service_models",
+        "cloud_deployment_models",
+        "cloud_Infrastructure_as_a_Service",
+        "cloud_storage_solutions",
+        "cloud_security_and_compliance",
+        "cloud_migration_and_management",
+        "cloud_cost_optimization"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": [
+        {
+          "title": "Scalability",
+          "summary": "Scalability is the property of a system to handle a growing amount of work. One definition for software systems specifies that this may be done by adding resources to the system.",
+          "url": "https://en.wikipedia.org/wiki/Scalability"
+        },
+        {
+          "title": "Reliability",
+          "summary": "Reliability, reliable, or unreliable may refer to:",
+          "url": "https://en.wikipedia.org/wiki/Reliability"
+        },
+        {
+          "title": "Performance",
+          "summary": "A performance is an act or process of staging or presenting a play, concert, or other forms of entertainment. It is also defined as the action or process of carrying out or accomplishing an action, task, or function.",
+          "url": "https://en.wikipedia.org/wiki/Performance"
+        }
+      ]
+    }
+  ]
+}

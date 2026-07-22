@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0f172a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: sans-serif;
+    color: #e2e8f0;
+    overflow: hidden;
+    gap: 24px;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: -8px;
+  }
+
+  /* ── Breathing circle ───────────────────────────────────────── */
+  #ring-wrap {
+    position: relative;
+    width: 240px;
+    height: 240px;
+  }
+
+  #circle {
+    position: absolute;
+    inset: 20px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #7c3aed, #4c1d95);
+    box-shadow: 0 0 0 0px rgba(124,58,237,0.35);
+    transform: scale(0.65);
+    /* transitions changed by JS for each phase */
+    transition: transform 4s ease-in-out, box-shadow 4s ease-in-out;
+  }
+
+  #circle.exhale {
+    transition: transform 4s ease-in-out, box-shadow 4s ease-in-out;
+  }
+  #circle.hold, #circle.rest {
+    transition: transform 0.05s linear, box-shadow 0.05s linear;
+  }
+
+  /* SVG progress ring */
+  #svg-ring {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg);
+  }
+  #progress-arc {
+    fill: none;
+    stroke: #7c3aed;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 691.15;  /* 2π × 110 */
+    stroke-dashoffset: 691.15;
+    transition: stroke-dashoffset 0.1s linear, stroke 0.4s;
+  }
+
+  /* Centre label */
+  #phase-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    pointer-events: none;
+  }
+  #phase-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #e2e8f0;
+    letter-spacing: 0.05em;
+  }
+  #phase-count {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #a78bfa;
+    line-height: 1;
+  }
+  #phase-sec {
+    font-size: 0.72rem;
+    color: #64748b;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Step dots ──────────────────────────────────────────────── */
+  #steps {
+    display: flex;
+    gap: 28px;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.35;
+    transition: opacity 0.3s;
+  }
+  .step.active { opacity: 1; }
+  .step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+  }
+  .step:nth-child(1) { color: #60a5fa; }
+  .step:nth-child(2) { color: #a78bfa; }
+  .step:nth-child(3) { color: #34d399; }
+  .step:nth-child(4) { color: #f59e0b; }
+  .step-lbl { font-size: 0.72rem; color: #94a3b8; }
+  .step-dur { font-size: 0.68rem; color: #64748b; }
+
+  /* ── Progress bar ──────────────────────────────────────────── */
+  #bar-wrap {
+    width: 260px;
+  }
+  #bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 6px;
+  }
+  #bar-track {
+    background: #1e293b;
+    border-radius: 6px;
+    height: 8px;
+    overflow: hidden;
+  }
+  #bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #7c3aed, #a78bfa);
+    width: 0%;
+    transition: width 0.12s linear;
+  }
+
+  /* ── Cycle counter ─────────────────────────────────────────── */
+  #cycle-line {
+    font-size: 0.82rem;
+    color: #64748b;
+    text-align: center;
+  }
+  #cycle-count { color: #a78bfa; font-weight: 700; }
+
+  /* ── Start / stop button ───────────────────────────────────── */
+  #toggle {
+    padding: 10px 32px;
+    border-radius: 8px;
+    border: 2px solid #7c3aed;
+    background: transparent;
+    color: #a78bfa;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  #toggle:hover { background: #7c3aed; color: #fff; }
+</style>
+</head>
+<body>
+
+<h2>Box Breathing Exercise</h2>
+
+<div id="ring-wrap">
+  <svg id="svg-ring" viewBox="0 0 240 240">
+    <circle cx="120" cy="120" r="110" fill="none" stroke="#1e293b" stroke-width="4"/>
+    <circle id="progress-arc" cx="120" cy="120" r="110"/>
+  </svg>
+  <div id="circle"></div>
+  <div id="phase-label">
+    <span id="phase-name">READY</span>
+    <span id="phase-count">—</span>
+    <span id="phase-sec">seconds</span>
+  </div>
+</div>
+
+<div id="steps">
+  <div class="step" id="step-0">
+    <div class="step-dot"></div>
+    <span class="step-lbl">Inhale</span>
+    <span class="step-dur">4 s</span>
+  </div>
+  <div class="step" id="step-1">
+    <div class="step-dot"></div>
+    <span class="step-lbl">Hold</span>
+    <span class="step-dur">4 s</span>
+  </div>
+  <div class="step" id="step-2">
+    <div class="step-dot"></div>
+    <span class="step-lbl">Exhale</span>
+    <span class="step-dur">4 s</span>
+  </div>
+  <div class="step" id="step-3">
+    <div class="step-dot"></div>
+    <span class="step-lbl">Rest</span>
+    <span class="step-dur">2 s</span>
+  </div>
+</div>
+
+<div id="bar-wrap">
+  <div id="bar-label">
+    <span>Cycle progress</span>
+    <span id="bar-pct">0%</span>
+  </div>
+  <div id="bar-track"><div id="bar-fill"></div></div>
+</div>
+
+<div id="cycle-line">
+  Cycles completed: <span id="cycle-count">0</span>
+</div>
+
+<button id="toggle">▶ Start</button>
+
+<script>
+"use strict";
+
+// 4-4-4-2 box breathing: total cycle = 14 s
+const PHASES = [
+  { name: "INHALE",  duration: 4, arcColor: "#60a5fa" },
+  { name: "HOLD",    duration: 4, arcColor: "#a78bfa" },
+  { name: "EXHALE",  duration: 4, arcColor: "#34d399" },
+  { name: "REST",    duration: 2, arcColor: "#f59e0b" },
+];
+const CYCLE_DURATION = PHASES.reduce((s, p) => s + p.duration, 0); // 14s
+const CIRCUMFERENCE = 2 * Math.PI * 110; // 691.15
+
+const circle     = document.getElementById("circle");
+const phaseName  = document.getElementById("phase-name");
+const phaseCount = document.getElementById("phase-count");
+const arc        = document.getElementById("progress-arc");
+const barFill    = document.getElementById("bar-fill");
+const barPct     = document.getElementById("bar-pct");
+const cycleCount = document.getElementById("cycle-count");
+const toggleBtn  = document.getElementById("toggle");
+
+let running = false;
+let startTime = null;
+let raf = null;
+let lastPhaseIndex = -1;
+let cycles = 0;
+
+function phaseAt(elapsed) {
+  // elapsed = seconds into the current cycle (0 – CYCLE_DURATION)
+  let t = ((elapsed % CYCLE_DURATION) + CYCLE_DURATION) % CYCLE_DURATION;
+  let acc = 0;
+  for (let i = 0; i < PHASES.length; i++) {
+    if (t < acc + PHASES[i].duration) {
+      return { phaseIndex: i, phaseElapsed: t - acc, remaining: PHASES[i].duration - (t - acc) };
+    }
+    acc += PHASES[i].duration;
+  }
+  return { phaseIndex: 0, phaseElapsed: 0, remaining: PHASES[0].duration };
+}
+
+function applyPhaseTransition(phaseIndex) {
+  const p = PHASES[phaseIndex];
+
+  // Circle size
+  circle.className = "";
+  if (p.name === "INHALE") {
+    circle.style.transition = `transform ${p.duration}s ease-in-out, box-shadow ${p.duration}s ease-in-out`;
+    circle.style.transform  = "scale(1.0)";
+    circle.style.boxShadow  = `0 0 0 24px rgba(96,165,250,0.15)`;
+  } else if (p.name === "HOLD") {
+    circle.style.transition = "transform 0.1s, box-shadow 0.1s";
+    circle.style.transform  = "scale(1.0)";
+    circle.style.boxShadow  = "0 0 0 28px rgba(167,139,250,0.18)";
+  } else if (p.name === "EXHALE") {
+    circle.style.transition = `transform ${p.duration}s ease-in-out, box-shadow ${p.duration}s ease-in-out`;
+    circle.style.transform  = "scale(0.65)";
+    circle.style.boxShadow  = "0 0 0 4px rgba(52,211,153,0.12)";
+  } else { // REST
+    circle.style.transition = "transform 0.1s, box-shadow 0.1s";
+    circle.style.transform  = "scale(0.65)";
+    circle.style.boxShadow  = "0 0 0 4px rgba(245,158,11,0.1)";
+  }
+
+  arc.style.stroke = p.arcColor;
+  phaseName.textContent = p.name;
+
+  // Update step dots
+  document.querySelectorAll(".step").forEach((el, i) => {
+    el.classList.toggle("active", i === phaseIndex);
+  });
+}
+
+function tick(ts) {
+  if (!running) return;
+
+  const elapsed = (ts - startTime) / 1000;
+  const { phaseIndex, phaseElapsed, remaining } = phaseAt(elapsed);
+  const phase = PHASES[phaseIndex];
+
+  // Detect phase change
+  if (phaseIndex !== lastPhaseIndex) {
+    if (phaseIndex === 0 && lastPhaseIndex !== -1) {
+      cycles++;
+      cycleCount.textContent = cycles;
+    }
+    lastPhaseIndex = phaseIndex;
+    applyPhaseTransition(phaseIndex);
+  }
+
+  // Arc progress within this phase (0→1)
+  const phaseProgress = phaseElapsed / phase.duration;
+  arc.style.strokeDashoffset = CIRCUMFERENCE * (1 - phaseProgress);
+
+  // Centre countdown
+  phaseCount.textContent = Math.ceil(remaining);
+
+  // Bar: position in overall cycle
+  const cycleProgress = (elapsed % CYCLE_DURATION) / CYCLE_DURATION;
+  const pct = Math.round(cycleProgress * 100);
+  barFill.style.width = pct + "%";
+  barPct.textContent  = pct + "%";
+
+  raf = requestAnimationFrame(tick);
+}
+
+function start() {
+  running    = true;
+  startTime  = performance.now();
+  lastPhaseIndex = -1;
+  toggleBtn.textContent = "⏹ Stop";
+  applyPhaseTransition(0);
+  raf = requestAnimationFrame(tick);
+}
+
+function stop() {
+  running = false;
+  if (raf) cancelAnimationFrame(raf);
+  circle.style.transition = "transform 0.6s, box-shadow 0.6s";
+  circle.style.transform  = "scale(0.65)";
+  circle.style.boxShadow  = "none";
+  arc.style.strokeDashoffset = CIRCUMFERENCE;
+  phaseName.textContent  = "READY";
+  phaseCount.textContent = "—";
+  barFill.style.width    = "0%";
+  barPct.textContent     = "0%";
+  toggleBtn.textContent  = "▶ Start";
+  document.querySelectorAll(".step").forEach(el => el.classList.remove("active"));
+  lastPhaseIndex = -1;
+}
+
+toggleBtn.addEventListener("click", () => {
+  if (running) stop(); else start();
+});
+</script>
+</body>
+</html>

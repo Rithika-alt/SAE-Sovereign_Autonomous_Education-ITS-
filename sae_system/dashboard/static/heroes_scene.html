@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; overflow: hidden; }
+  canvas { display: block; width: 100%; height: auto; cursor: default; }
+  #tooltip {
+    position: fixed;
+    background: rgba(15,23,42,0.92);
+    border: 1px solid #7c3aed;
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: #e2e8f0;
+    font: 13px/1.4 sans-serif;
+    pointer-events: none;
+    display: none;
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="tooltip"></div>
+<script>
+"use strict";
+
+const canvas = document.getElementById("c");
+const ctx    = canvas.getContext("2d");
+const W = 1200, H = 420;
+canvas.width  = W;
+canvas.height = H;
+
+const tip = document.getElementById("tooltip");
+
+// ── Stars ─────────────────────────────────────────────────────────────────
+const STARS = Array.from({length: 180}, () => ({
+  x: Math.random() * W,
+  y: Math.random() * H,
+  r: Math.random() * 1.6 + 0.3,
+  drift: (Math.random() - 0.5) * 0.12,
+  twinkle: Math.random() * Math.PI * 2,
+}));
+
+// ── Scrolling monitor lines ────────────────────────────────────────────────
+const IM_LINES = [
+  "JARVIS > suit diagnostics OK",
+  "reactor: 96% output",
+  "threat-lvl: 0 | all clear",
+  "avengers-db: syncing…",
+  "HUD calibration: done",
+  "boot-time: 0.003s",
+];
+const BW_LINES = [
+  "mission_log: 24h silent",
+  "alias stack: 7 active",
+  "intel package: encrypted",
+  "comms: scrambled OK",
+  "extraction route: B2",
+  "backup: sigma-7",
+];
+
+// ── Shared animation state ────────────────────────────────────────────────
+let ironManScroll = 0, widowScroll = 0;
+let ironManBounce = 0;
+
+// ── Hit regions ───────────────────────────────────────────────────────────
+const IM_X = 220, BW_X = 980;
+
+function inRect(px, py, x, y, w, h) {
+  return px >= x && px <= x + w && py >= y && py <= y + h;
+}
+function inCircle(px, py, cx, cy, r) {
+  return (px - cx) ** 2 + (py - cy) ** 2 <= r * r;
+}
+
+// ── Active animations ─────────────────────────────────────────────────────
+const activeAnimations = [];
+
+function spawnWebAnimation(startX, startY) {
+  activeAnimations.push({
+    startX, startY,
+    spiderX: startX, spiderY: startY,
+    frame: 0,
+    totalFrames: 120,  // 2s at 60fps
+    phase: "swing",    // swing → catch → bounce → done
+    speechAlpha: 0,
+  });
+}
+
+// ── Draw helpers ──────────────────────────────────────────────────────────
+function drawBackground(t) {
+  // Gradient sky
+  const grd = ctx.createLinearGradient(0, 0, 0, H);
+  grd.addColorStop(0, "#0a0e1a");
+  grd.addColorStop(1, "#0f172a");
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid lines
+  ctx.save();
+  ctx.strokeStyle = "rgba(124,58,237,0.07)";
+  ctx.lineWidth = 1;
+  for (let x = 0; x <= W; x += 60) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = 0; y <= H; y += 60) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+  ctx.restore();
+
+  // Stars
+  for (const s of STARS) {
+    s.twinkle += 0.022;
+    s.x += s.drift;
+    if (s.x < 0) s.x = W;
+    if (s.x > W) s.x = 0;
+    const alpha = 0.4 + 0.45 * Math.sin(s.twinkle);
+    ctx.save();
+    ctx.fillStyle = `rgba(226,232,240,${alpha})`;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+function drawDesk(x, y, w, accentColor) {
+  const h = 18;
+  // Desk surface
+  ctx.fillStyle = "#1e293b";
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, 4);
+  ctx.fill();
+  // Accent edge
+  ctx.strokeStyle = accentColor;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(x + 6, y); ctx.lineTo(x + w - 6, y);
+  ctx.stroke();
+  // Desk legs
+  ctx.fillStyle = "#334155";
+  ctx.fillRect(x + 20, y + h, 8, 30);
+  ctx.fillRect(x + w - 28, y + h, 8, 30);
+}
+
+function drawMonitor(cx, topY, accentColor, lines, scrollOffset) {
+  const mw = 145, mh = 95;
+  const mx = cx - mw / 2;
+
+  // Monitor housing
+  ctx.fillStyle = "#0f172a";
+  ctx.beginPath();
+  ctx.roundRect(mx, topY, mw, mh, 6);
+  ctx.fill();
+  ctx.strokeStyle = accentColor;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.roundRect(mx, topY, mw, mh, 6);
+  ctx.stroke();
+
+  // Screen content (clipped)
+  ctx.save();
+  ctx.beginPath();
+  ctx.roundRect(mx + 4, topY + 4, mw - 8, mh - 8, 4);
+  ctx.clip();
+  ctx.fillStyle = "#0d1117";
+  ctx.fillRect(mx + 4, topY + 4, mw - 8, mh - 8);
+
+  ctx.font = "8px monospace";
+  const lineH = 11;
+  for (let i = 0; i < lines.length; i++) {
+    const yy = topY + 10 + (i - scrollOffset % 1) * lineH;
+    const lineIdx = Math.floor(i + scrollOffset) % lines.length;
+    const alpha = Math.min(1, (yy - (topY + 4)) / 10) * Math.min(1, ((topY + mh - 8) - yy) / 10);
+    ctx.fillStyle = `rgba(${accentColor === "#ff6600" ? "255,150,80" : "100,255,160"},${Math.max(0, alpha)})`;
+    ctx.fillText(lines[lineIdx], mx + 8, yy);
+  }
+  ctx.restore();
+
+  // Monitor stand
+  ctx.fillStyle = "#334155";
+  ctx.fillRect(cx - 4, topY + mh, 8, 10);
+  ctx.fillRect(cx - 18, topY + mh + 10, 36, 5);
+}
+
+function drawIronMan(t, bounceY, pass) {
+  const x = IM_X, by = bounceY;
+
+  if (pass === "body") {
+    // Legs
+    ctx.fillStyle = "#B71C1C";
+    ctx.fillRect(x - 14, 280 + by, 11, 35);
+    ctx.fillRect(x + 3, 280 + by, 11, 35);
+    // Boots
+    ctx.fillStyle = "#FFD700";
+    ctx.fillRect(x - 15, 313 + by, 13, 10);
+    ctx.fillRect(x + 2, 313 + by, 13, 10);
+    // Torso
+    ctx.fillStyle = "#C62828";
+    ctx.beginPath();
+    ctx.roundRect(x - 26, 215 + by, 52, 68, 5);
+    ctx.fill();
+    // Gold stomach plate
+    ctx.fillStyle = "#FFD700";
+    ctx.beginPath();
+    ctx.roundRect(x - 20, 255 + by, 40, 25, 3);
+    ctx.fill();
+    // Arc reactor
+    ctx.save();
+    ctx.shadowColor = "#00ccff";
+    ctx.shadowBlur = 16;
+    ctx.fillStyle = "#00ccff";
+    ctx.beginPath();
+    ctx.arc(x, 230 + by, 10, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    // Inner reactor
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(x, 230 + by, 5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  if (pass === "arms") {
+    // Left arm (away from monitor)
+    ctx.fillStyle = "#C62828";
+    ctx.beginPath();
+    ctx.roundRect(x - 38, 218 + by, 12, 45, 4);
+    ctx.fill();
+    ctx.fillStyle = "#FFD700";
+    ctx.beginPath();
+    ctx.roundRect(x - 40, 257 + by, 14, 12, 3);
+    ctx.fill();
+
+    // Right arm (typing)
+    const typingAngle = 0.35 + 0.15 * Math.sin(t * 3.5);
+    ctx.save();
+    ctx.translate(x + 26, 225 + by);
+    ctx.rotate(typingAngle);
+    ctx.fillStyle = "#C62828";
+    ctx.beginPath();
+    ctx.roundRect(0, 0, 12, 40, 4);
+    ctx.fill();
+    ctx.fillStyle = "#FFD700";
+    ctx.beginPath();
+    ctx.roundRect(-2, 38, 14, 10, 3);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  if (pass === "head") {
+    // Neck
+    ctx.fillStyle = "#B71C1C";
+    ctx.fillRect(x - 8, 208 + by, 16, 10);
+    // Helmet
+    ctx.fillStyle = "#B71C1C";
+    ctx.beginPath();
+    ctx.roundRect(x - 22, 153 + by, 44, 58, [10, 10, 4, 4]);
+    ctx.fill();
+    // Faceplate
+    ctx.fillStyle = "#C62828";
+    ctx.beginPath();
+    ctx.roundRect(x - 18, 168 + by, 36, 38, [6, 6, 4, 4]);
+    ctx.fill();
+    // Eye slits
+    ctx.save();
+    ctx.shadowColor = "#FFD700";
+    ctx.shadowBlur = 8;
+    ctx.fillStyle = "#FFD700";
+    ctx.fillRect(x - 16, 176 + by, 12, 4);
+    ctx.fillRect(x + 4,  176 + by, 12, 4);
+    ctx.restore();
+    // Gold chin
+    ctx.fillStyle = "#FFD700";
+    ctx.beginPath();
+    ctx.roundRect(x - 14, 197 + by, 28, 8, 3);
+    ctx.fill();
+    // Ear pieces
+    ctx.fillStyle = "#FFD700";
+    ctx.fillRect(x - 24, 163 + by, 6, 12);
+    ctx.fillRect(x + 18, 163 + by, 6, 12);
+  }
+}
+
+function drawBlackWidow(t, pass) {
+  const x = BW_X;
+
+  if (pass === "body") {
+    // Legs
+    ctx.fillStyle = "#1a1a2e";
+    ctx.fillRect(x - 13, 280, 10, 36);
+    ctx.fillRect(x + 3,  280, 10, 36);
+    // Boots
+    ctx.fillStyle = "#2d2d2d";
+    ctx.fillRect(x - 14, 313, 12, 10);
+    ctx.fillRect(x + 2,  313, 12, 10);
+    // Suit torso
+    ctx.fillStyle = "#111827";
+    ctx.beginPath();
+    ctx.roundRect(x - 24, 215, 48, 68, 5);
+    ctx.fill();
+    // Red hourglass belt buckle
+    ctx.fillStyle = "#dc2626";
+    ctx.beginPath();
+    ctx.moveTo(x - 8, 260);
+    ctx.lineTo(x + 8, 260);
+    ctx.lineTo(x + 4, 268);
+    ctx.lineTo(x + 8, 276);
+    ctx.lineTo(x - 8, 276);
+    ctx.lineTo(x - 4, 268);
+    ctx.closePath();
+    ctx.fill();
+    // Utility belt
+    ctx.fillStyle = "#374151";
+    ctx.beginPath();
+    ctx.roundRect(x - 24, 258, 48, 8, 3);
+    ctx.fill();
+  }
+
+  if (pass === "arms") {
+    // Left arm
+    ctx.fillStyle = "#111827";
+    ctx.beginPath();
+    ctx.roundRect(x - 36, 218, 12, 45, 4);
+    ctx.fill();
+    ctx.fillStyle = "#374151";
+    ctx.beginPath();
+    ctx.roundRect(x - 38, 257, 14, 10, 3);
+    ctx.fill();
+
+    // Right arm (typing)
+    const typingAngle = 0.30 + 0.18 * Math.sin(t * 4.2 + 1);
+    ctx.save();
+    ctx.translate(x + 24, 222);
+    ctx.rotate(typingAngle);
+    ctx.fillStyle = "#111827";
+    ctx.beginPath();
+    ctx.roundRect(0, 0, 12, 42, 4);
+    ctx.fill();
+    ctx.fillStyle = "#374151";
+    ctx.beginPath();
+    ctx.roundRect(-2, 40, 14, 10, 3);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  if (pass === "head") {
+    // Neck
+    ctx.fillStyle = "#FDBCB4";
+    ctx.fillRect(x - 7, 210, 14, 8);
+    // Head (circle)
+    ctx.fillStyle = "#FDBCB4";
+    ctx.beginPath();
+    ctx.arc(x, 190, 20, 0, Math.PI * 2);
+    ctx.fill();
+    // Hair
+    ctx.fillStyle = "#3d1a0a";
+    ctx.beginPath();
+    ctx.arc(x, 185, 20, Math.PI, 0);
+    ctx.fill();
+    // Animated hair strand
+    const hairSway = 0.06 * Math.sin(t * 1.4);
+    ctx.save();
+    ctx.strokeStyle = "#3d1a0a";
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(x + 18, 185);
+    ctx.bezierCurveTo(
+      x + 28 + hairSway * 20, 195 + hairSway * 5,
+      x + 30 + hairSway * 30, 210 + hairSway * 10,
+      x + 22 + hairSway * 25, 225
+    );
+    ctx.stroke();
+    // Left strand
+    ctx.beginPath();
+    ctx.moveTo(x - 18, 185);
+    ctx.bezierCurveTo(
+      x - 28 - hairSway * 15, 195,
+      x - 26 - hairSway * 20, 215,
+      x - 16 - hairSway * 15, 228
+    );
+    ctx.stroke();
+    ctx.restore();
+    // Eyes
+    ctx.fillStyle = "#1e293b";
+    ctx.beginPath();
+    ctx.ellipse(x - 7, 191, 3, 2.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(x + 7, 191, 3, 2.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Lips
+    ctx.fillStyle = "#c0392b";
+    ctx.beginPath();
+    ctx.ellipse(x, 200, 5, 2, 0, 0, Math.PI);
+    ctx.fill();
+  }
+}
+
+function drawSpiderMan(sx, sy) {
+  // Body
+  ctx.fillStyle = "#dc2626";
+  ctx.beginPath();
+  ctx.ellipse(sx, sy - 25, 11, 18, 0, 0, Math.PI * 2);
+  ctx.fill();
+  // Blue legs
+  ctx.strokeStyle = "#1d4ed8";
+  ctx.lineWidth = 5;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(sx - 4, sy - 12);
+  ctx.lineTo(sx - 10, sy);
+  ctx.moveTo(sx + 4, sy - 12);
+  ctx.lineTo(sx + 10, sy);
+  ctx.stroke();
+  // Arms
+  ctx.strokeStyle = "#dc2626";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(sx - 8, sy - 28);
+  ctx.lineTo(sx - 18, sy - 18);
+  ctx.moveTo(sx + 8, sy - 28);
+  ctx.lineTo(sx + 18, sy - 18);
+  ctx.stroke();
+  // Head
+  ctx.fillStyle = "#dc2626";
+  ctx.beginPath();
+  ctx.arc(sx, sy - 42, 13, 0, Math.PI * 2);
+  ctx.fill();
+  // White eye lenses
+  ctx.fillStyle = "white";
+  ctx.beginPath();
+  ctx.ellipse(sx - 5, sy - 43, 5, 4, -0.2, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(sx + 5, sy - 43, 5, 4, 0.2, 0, Math.PI * 2);
+  ctx.fill();
+  // Black web lines on face
+  ctx.strokeStyle = "#111";
+  ctx.lineWidth = 0.8;
+  ctx.beginPath();
+  ctx.moveTo(sx, sy - 56);
+  ctx.lineTo(sx, sy - 30);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(sx - 12, sy - 42);
+  ctx.lineTo(sx + 12, sy - 42);
+  ctx.stroke();
+}
+
+function drawWebAnimation(anim) {
+  const { startX, startY, frame, totalFrames, spiderX, spiderY } = anim;
+  const progress = frame / totalFrames;
+
+  // Web strand from click point to spider
+  ctx.save();
+  ctx.strokeStyle = `rgba(200,200,200,${0.8 - progress * 0.4})`;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(startX, startY);
+  ctx.bezierCurveTo(
+    startX + (IM_X - startX) * 0.3, startY - 80,
+    IM_X, startY - 40,
+    anim.spiderX, anim.spiderY
+  );
+  ctx.stroke();
+
+  // Spider
+  drawSpiderMan(anim.spiderX, anim.spiderY);
+
+  // Speech bubble (only during catch/bounce)
+  if (anim.phase === "catch" || anim.phase === "bounce") {
+    const alpha = anim.speechAlpha;
+    if (alpha > 0) {
+      const bx = BW_X - 220, by = 140;
+      ctx.fillStyle = `rgba(30,41,59,${alpha})`;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, 195, 42, 8);
+      ctx.fill();
+      ctx.strokeStyle = `rgba(0,255,136,${alpha})`;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, 195, 42, 8);
+      ctx.stroke();
+      // Tail pointing right toward Black Widow
+      ctx.fillStyle = `rgba(30,41,59,${alpha})`;
+      ctx.beginPath();
+      ctx.moveTo(bx + 195, by + 21);
+      ctx.lineTo(bx + 210, by + 18);
+      ctx.lineTo(bx + 195, by + 28);
+      ctx.fill();
+      ctx.fillStyle = `rgba(226,232,240,${alpha})`;
+      ctx.font = "bold 13px sans-serif";
+      ctx.fillText("HA! Not again 😄", bx + 12, by + 26);
+    }
+  }
+  ctx.restore();
+}
+
+function updateAnimation(anim) {
+  anim.frame++;
+  const f = anim.frame;
+
+  if (anim.phase === "swing") {
+    // Spider swings from click toward Iron Man
+    const t = Math.min(1, f / 35);
+    const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    anim.spiderX = anim.startX + (IM_X - anim.startX) * ease;
+    anim.spiderY = anim.startY + (230 - anim.startY) * ease
+                   - 60 * Math.sin(Math.PI * ease);
+    if (f >= 35) {
+      anim.phase = "catch";
+      ironManBounce = 0;
+    }
+  } else if (anim.phase === "catch") {
+    // Iron Man bounces, speech bubble fades in
+    const localF = f - 35;
+    ironManBounce = -28 * Math.sin(Math.PI * localF / 25);
+    anim.speechAlpha = Math.min(1, localF / 10);
+    anim.spiderX = IM_X;
+    anim.spiderY = 230 + ironManBounce;
+    if (localF >= 25) {
+      anim.phase = "bounce";
+      ironManBounce = 0;
+    }
+  } else if (anim.phase === "bounce") {
+    // Spider bounces and fades out; speech bubble lingers then fades
+    const localF = f - 60;
+    anim.speechAlpha = Math.max(0, 1 - (localF - 20) / 20);
+    anim.spiderX = IM_X + 30 * Math.sin(localF * 0.3);
+    anim.spiderY = 180 + 40 * Math.abs(Math.sin(localF * 0.25));
+    if (localF >= 60) {
+      anim.phase = "done";
+    }
+  }
+  return anim.phase !== "done";
+}
+
+// ── Main loop ─────────────────────────────────────────────────────────────
+let lastT = 0;
+function loop(ts) {
+  const t = ts / 1000;
+  const dt = t - lastT;
+  lastT = t;
+
+  ironManScroll += dt * 0.4;
+  widowScroll   += dt * 0.35;
+
+  drawBackground(t);
+
+  // Body layers (behind desks)
+  drawIronMan(t, 0, "body");
+  drawBlackWidow(t, "body");
+
+  // Desks cover legs
+  drawDesk(130, 310, 180, "#ff6600");
+  drawDesk(890, 310, 180, "#00ff88");
+
+  // Monitors
+  drawMonitor(IM_X, 205, "#ff6600", IM_LINES, ironManScroll);
+  drawMonitor(BW_X, 205, "#00ff88", BW_LINES, widowScroll);
+
+  // Arms in front of monitors
+  drawIronMan(t, 0, "arms");
+  drawBlackWidow(t, "arms");
+
+  // Heads above monitors
+  drawIronMan(t, 0, "head");
+  drawBlackWidow(t, "head");
+
+  // Web animations
+  for (let i = activeAnimations.length - 1; i >= 0; i--) {
+    const alive = updateAnimation(activeAnimations[i]);
+    if (alive) {
+      drawWebAnimation(activeAnimations[i]);
+    } else {
+      activeAnimations.splice(i, 1);
+      ironManBounce = 0;
+    }
+  }
+
+  // Name labels
+  ctx.save();
+  ctx.font = "bold 12px sans-serif";
+  ctx.fillStyle = "#ff6600";
+  ctx.textAlign = "center";
+  ctx.fillText("IRON MAN", IM_X, H - 12);
+  ctx.fillStyle = "#00ff88";
+  ctx.fillText("BLACK WIDOW", BW_X, H - 12);
+  ctx.restore();
+
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+// ── Interaction ───────────────────────────────────────────────────────────
+canvas.addEventListener("click", (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = W / rect.width;
+  const scaleY = H / rect.height;
+  const cx = (e.clientX - rect.left) * scaleX;
+  const cy = (e.clientY - rect.top)  * scaleY;
+
+  // Spawn web animation from click point
+  spawnWebAnimation(cx, cy);
+});
+
+canvas.addEventListener("mousemove", (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = W / rect.width;
+  const scaleY = H / rect.height;
+  const mx = (e.clientX - rect.left) * scaleX;
+  const my = (e.clientY - rect.top)  * scaleY;
+
+  const overIM = inRect(mx, my, IM_X - 26, 153, 52, 170);
+  const overBW = inRect(mx, my, BW_X - 24, 170, 48, 158);
+
+  if (overIM) {
+    tip.style.display = "block";
+    tip.style.left = (e.clientX + 14) + "px";
+    tip.style.top  = (e.clientY - 30) + "px";
+    tip.textContent = "🔴 Iron Man — genius, billionaire, playboy";
+    canvas.style.cursor = "pointer";
+  } else if (overBW) {
+    tip.style.display = "block";
+    tip.style.left = (e.clientX + 14) + "px";
+    tip.style.top  = (e.clientY - 30) + "px";
+    tip.textContent = "🟢 Black Widow — master spy, S.H.I.E.L.D. agent";
+    canvas.style.cursor = "pointer";
+  } else {
+    tip.style.display = "none";
+    canvas.style.cursor = "default";
+  }
+});
+
+canvas.addEventListener("mouseleave", () => {
+  tip.style.display = "none";
+  canvas.style.cursor = "default";
+});
+</script>
+</body>
+</html>

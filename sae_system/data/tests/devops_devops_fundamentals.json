@@ -1,0 +1,139 @@
+[
+  {
+    "question_id": "q1",
+    "question": "What is the primary goal of Agile methodologies in DevOps?",
+    "type": "mcq",
+    "options": [
+      "To deliver high-quality software and services quickly to customers.",
+      "To improve team collaboration and communication.",
+      "To reduce project costs and timelines.",
+      "To follow a strict project management plan."
+    ],
+    "correct_answer": "To deliver high-quality software and services quickly to customers.",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q2",
+    "question": "What is the core theory of Agile Methodologies in DevOps?",
+    "type": "mcq",
+    "options": [
+      "Iterative development and continuous improvement.",
+      "Continuous integration and delivery.",
+      "Collaboration between development and operations teams.",
+      "Responding to change over following a plan."
+    ],
+    "correct_answer": "Iterative development and continuous improvement.",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q3",
+    "question": "What is the formula for Agile DevOps?",
+    "type": "mcq",
+    "options": [
+      "People + Process + Tools = Value",
+      "People + Process = Tools",
+      "Tools + People = Process",
+      "Process + Tools = People"
+    ],
+    "correct_answer": "People + Process + Tools = Value",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "hard"
+  },
+  {
+    "question_id": "q4",
+    "question": "True or False: Agile methodologies are only used in software development.",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "False",
+    "explanation": "See lesson material.",
+    "marks": 1,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q5",
+    "question": "What is the primary benefit of continuous integration in Agile DevOps?",
+    "type": "short_answer",
+    "options": [],
+    "correct_answer": "Refer to lesson material for the model answer.",
+    "explanation": "See lesson material.",
+    "marks": 5,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q6",
+    "question": "True or False: Continuous delivery is only used for small projects.",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "False",
+    "explanation": "See lesson material.",
+    "marks": 1,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q7",
+    "question": "What is the core principle of continuous monitoring in Agile DevOps?",
+    "type": "mcq",
+    "options": [
+      "To detect and respond to issues quickly.",
+      "To improve team collaboration and communication.",
+      "To reduce project costs and timelines.",
+      "To follow a strict project management plan."
+    ],
+    "correct_answer": "To detect and respond to issues quickly.",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q8",
+    "question": "True or False: Agile methodologies are not flexible enough for changing requirements.",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "False",
+    "explanation": "See lesson material.",
+    "marks": 1,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q9",
+    "question": "What is the primary goal of continuous improvement in Agile DevOps?",
+    "type": "mcq",
+    "options": [
+      "To improve team collaboration and communication.",
+      "To reduce project costs and timelines.",
+      "To follow a strict project management plan.",
+      "To continuously evaluate and refine processes and tools."
+    ],
+    "correct_answer": "To continuously evaluate and refine processes and tools.",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "hard"
+  },
+  {
+    "question_id": "q10",
+    "question": "True or False: Agile methodologies are only used in DevOps for software development.",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "False",
+    "explanation": "See lesson material.",
+    "marks": 1,
+    "difficulty": "easy"
+  }
+]

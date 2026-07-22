@@ -1,0 +1,287 @@
+{
+  "project": "Sovereign Autonomous Education System",
+  "analysis_date": "2026-05-16",
+  "total_files_found": 37,
+  "total_files_missing": 2,
+  "missing_files": [
+    "integrity/xp_engine.py",
+    "integrity/stress_relief.py"
+  ],
+  "total_lines_of_code": 5149,
+  "layers": {
+    "presentation": {
+      "files": [
+        "dashboard/app.py",
+        "dashboard/roadmap_display.py",
+        "dashboard/test_interface.py",
+        "dashboard/stress_relief_ui.py",
+        "dashboard/stress_manager.py",
+        "dashboard/static/heroes_scene.html",
+        "dashboard/static/breathing_animation.html"
+      ],
+      "status": "partial",
+      "loc": 2869,
+      "notes": "roadmap_display.py is dead code (not imported by app.py). test_interface.py uses dark theme CSS inconsistent with light app.py theme."
+    },
+    "agent": {
+      "files": [
+        "agents/tutor_agent.py",
+        "agents/roadmap_agent.py",
+        "agents/auditor_agent.py",
+        "agents/searcher_agent.py"
+      ],
+      "status": "complete",
+      "loc": 533,
+      "notes": "All 4 agents fully implemented with retry logic, fallbacks, and sovereignty enforcement."
+    },
+    "orchestration": {
+      "files": [
+        "orchestration/state_schema.py",
+        "orchestration/state_graph.py"
+      ],
+      "status": "complete",
+      "loc": 137,
+      "notes": "LangGraph StateGraph fully wired. Critical: sae_graph instantiated at module import time."
+    },
+    "memory": {
+      "files": [
+        "memory/chroma_store.py",
+        "memory/graph_engine.py"
+      ],
+      "status": "complete",
+      "loc": 292,
+      "notes": "ChromaDB and NetworkX both implemented. NetworkX graph is in-memory only (no persistence). Hardcoded ML curriculum nodes."
+    },
+    "evaluation": {
+      "files": [
+        "evaluation/semantic_auditor.py",
+        "evaluation/test_engine.py"
+      ],
+      "status": "complete",
+      "loc": 331,
+      "notes": "Semantic grading, test generation, and mixed-format test scoring all complete. numpy missing from requirements.txt."
+    },
+    "integrity": {
+      "files": [
+        "integrity/affective_pacing.py",
+        "integrity/anti_malpractice.py",
+        "integrity/camera_proctor.py",
+        "integrity/proof_of_learning.py",
+        "integrity/certificate_generator.py",
+        "integrity/p2p_handshake.py",
+        "MISSING: integrity/xp_engine.py",
+        "MISSING: integrity/stress_relief.py"
+      ],
+      "status": "partial",
+      "loc": 523,
+      "notes": "2 of 9 planned integrity files missing. p2p_handshake.py is a stub. affective_pacing not integrated into dashboard."
+    },
+    "output": {
+      "files": [
+        "media/video_generator.py",
+        "integrity/certificate_generator.py"
+      ],
+      "status": "complete",
+      "loc": 467,
+      "notes": "HTML5 animation and ReportLab PDF certificate both fully functional."
+    }
+  },
+  "features": [
+    { "name": "Domain selection UI", "file": "dashboard/app.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Roadmap generation (per-module)", "file": "agents/roadmap_agent.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Roadmap progressive display", "file": "dashboard/app.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Professor-style lesson (6 sections)", "file": "agents/tutor_agent.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "HTML5 lesson animation", "file": "media/video_generator.py", "status": "complete", "works_e2e": false, "blocker": "Google Fonts import requires internet connection" },
+    { "name": "Semantic grading (cosine similarity)", "file": "evaluation/semantic_auditor.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Anti-malpractice reasoning gate", "file": "integrity/anti_malpractice.py", "status": "partial", "works_e2e": false, "blocker": "Only called in CLI/LangGraph path, bypassed in Streamlit dashboard" },
+    { "name": "Camera proctoring (OpenCV)", "file": "integrity/camera_proctor.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Test generation (10 questions)", "file": "evaluation/test_engine.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Test grading (MCQ + semantic SA)", "file": "evaluation/test_engine.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "XP and leveling system", "file": "integrity/xp_engine.py", "status": "missing", "works_e2e": false, "blocker": "File does not exist" },
+    { "name": "Affective pacing (entropy)", "file": "integrity/affective_pacing.py", "status": "partial", "works_e2e": false, "blocker": "Module exists but not integrated into Streamlit dashboard flow" },
+    { "name": "Proof of learning (SHA-256)", "file": "integrity/proof_of_learning.py", "status": "complete", "works_e2e": false, "blocker": "Used in CLI path; dashboard issues certificate without explicit proof hash flow" },
+    { "name": "Completion certificate (ReportLab PDF)", "file": "integrity/certificate_generator.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Stress relief — Pomodoro timer", "file": "dashboard/stress_relief_ui.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Stress relief — Curiosity cards", "file": "dashboard/stress_manager.py", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Stress relief — 90-min forced break", "file": "dashboard/app.py sidebar", "status": "partial", "works_e2e": false, "blocker": "Colour warning only in sidebar — no forced break modal or interruption" },
+    { "name": "Hero scene Canvas animation", "file": "dashboard/static/heroes_scene.html", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Box breathing animation", "file": "dashboard/static/breathing_animation.html", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "Knowledge graph (NetworkX)", "file": "memory/graph_engine.py", "status": "complete", "works_e2e": false, "blocker": "In-memory only — resets on restart; hardcoded 10-node ML curriculum only" },
+    { "name": "ChromaDB vector store", "file": "memory/chroma_store.py", "status": "complete", "works_e2e": false, "blocker": "DefaultEmbeddingFunction downloads model on first use — requires internet" },
+    { "name": "LangGraph state machine", "file": "orchestration/state_graph.py", "status": "complete", "works_e2e": false, "blocker": "Module-level instantiation fails if Ollama not running at import time" },
+    { "name": "Sovereignty enforcement", "file": "agents/tutor_agent.py + 3 others", "status": "complete", "works_e2e": true, "blocker": "" },
+    { "name": "P2P social layer (mDNS)", "file": "integrity/p2p_handshake.py", "status": "stub", "works_e2e": false, "blocker": "Phase 2 feature — stub only, no real implementation" }
+  ],
+  "bugs": {
+    "critical": [
+      {
+        "id": "C01",
+        "file": "orchestration/state_graph.py",
+        "line": 153,
+        "description": "sae_graph = build_graph() executes at module import time, instantiating TutorAgent, AuditorAgent, SearcherAgent, KnowledgeGraph. If Ollama is not running at startup, SovereigntyError or a connection error is raised, crashing the entire import.",
+        "fix": "Wrap sae_graph in a lazy getter function or wrap build_graph() in a try/except with a descriptive error message."
+      },
+      {
+        "id": "C02",
+        "file": "evaluation/semantic_auditor.py",
+        "line": 8,
+        "description": "numpy is used (np.dot for cosine similarity) but NOT listed in requirements.txt. On a fresh pip install, all semantic grading calls fail with ModuleNotFoundError.",
+        "fix": "Add 'numpy' to requirements.txt."
+      }
+    ],
+    "major": [
+      {
+        "id": "M01",
+        "file": "dashboard/app.py",
+        "line": 223,
+        "description": "get_tutor_agent() cache_resource singleton is defined but never called. page_loading_lesson() instantiates TutorAgent() directly on every visit, discarding the instance cache each time.",
+        "fix": "Replace TutorAgent() in page_loading_lesson() with get_tutor_agent(), and call tutor.teach_concept(concept, domain) to use the singleton cache."
+      },
+      {
+        "id": "M02",
+        "file": "agents/tutor_agent.py",
+        "line": 248,
+        "description": "The run() LangGraph method only stores state['lesson_content'] = lesson.get('introduction', ''). The other 5 sections are generated but discarded in the CLI/LangGraph path.",
+        "fix": "Concatenate all 6 sections into lesson_content or store each section under its key in state."
+      },
+      {
+        "id": "M03",
+        "file": "dashboard/test_interface.py",
+        "line": 120,
+        "description": "Hard-coded dark CSS colours (#1e293b, #0f172a) throughout the file. With app.py's new light theme, the test page renders as a dark island inside the light application.",
+        "fix": "Update all CSS hex colour values to match app.py's light theme palette."
+      },
+      {
+        "id": "M04",
+        "file": "dashboard/roadmap_display.py",
+        "line": 1,
+        "description": "roadmap_display.py is not imported by app.py. The Plotly Sankey flow diagram and _render_module_card() are dead code. app.py reimplements the roadmap display inline.",
+        "fix": "Either import and use roadmap_display.py in page_roadmap() (and update to light theme), or delete the file."
+      },
+      {
+        "id": "M05",
+        "file": "integrity/",
+        "line": 0,
+        "description": "integrity/xp_engine.py and integrity/stress_relief.py do not exist. No XP tracking, leveling, or standalone stress detection is implemented.",
+        "fix": "Implement xp_engine.py with per-event point awards and JSON persistence. Implement stress_relief.py as an adapter over affective_pacing.py."
+      }
+    ],
+    "minor": [
+      {
+        "id": "m01",
+        "file": "integrity/proof_of_learning.py",
+        "line": 9,
+        "description": "LOG_PATH = './mastery_log.jsonl' is relative to CWD — log may be created in wrong directory.",
+        "fix": "Use Path(__file__).parent.parent / 'data' / 'mastery_log.jsonl' for absolute resolution."
+      },
+      {
+        "id": "m02",
+        "file": "integrity/certificate_generator.py",
+        "line": 14,
+        "description": "CERTS_DIR = './certificates' is relative to CWD — certificates may be saved to wrong directory.",
+        "fix": "Use Path(__file__).parent.parent / 'data' / 'certificates' for absolute resolution."
+      },
+      {
+        "id": "m03",
+        "file": "integrity/camera_proctor.py",
+        "line": 98,
+        "description": "list(self._frame_queue.queue) accesses queue internals without the Queue's lock — minor thread safety issue.",
+        "fix": "Use copy.copy() under self._lock to snapshot the queue contents safely."
+      },
+      {
+        "id": "m04",
+        "file": "dashboard/test_interface.py",
+        "line": 24,
+        "description": "_BEEP_B64 contains a minimal WAV header with zero audio data — warning beep is silent.",
+        "fix": "Replace with a valid base64-encoded 440 Hz tone WAV file."
+      },
+      {
+        "id": "m05",
+        "file": "memory/graph_engine.py",
+        "line": 56,
+        "description": "KnowledgeGraph seeds only a hardcoded 10-node ML curriculum. Dynamic roadmap domains are not reflected in the graph.",
+        "fix": "Add roadmap concept nodes dynamically from roadmap modules during roadmap generation."
+      },
+      {
+        "id": "m06",
+        "file": "media/video_generator.py",
+        "line": 134,
+        "description": "Generated HTML animation includes Google Fonts @import URL — violates offline-first sovereignty principle.",
+        "fix": "Remove Google Fonts import and use system-ui font stack only."
+      },
+      {
+        "id": "m07",
+        "file": "dashboard/app.py",
+        "line": 38,
+        "description": "Global CSS @import for Google Fonts (Inter, Plus Jakarta Sans) requires internet connection.",
+        "fix": "Bundle fonts locally or accept system-ui fallback in offline use."
+      }
+    ]
+  },
+  "recent_changes": [
+    {
+      "file": "agents/tutor_agent.py",
+      "change_summary": "Full rewrite: replaced single large Ollama prompt with 6 dedicated SECTION_PROMPTS, added _call_ollama() with 3-retry logic and >30 char validation, replaced class-level cache with instance-level self._cache, added rich paragraph-length _fallback() for all 6 sections.",
+      "introduced_bugs": ["run() only stores introduction in state", "get_tutor_agent() singleton never called — cache wasted on each lesson load"]
+    },
+    {
+      "file": "agents/roadmap_agent.py",
+      "change_summary": "Full rewrite: replaced single 10-module Ollama prompt with _get_titles() (1 call) + _generate_module() (1 call per module). Added json_repair, progress_callback, Wikipedia resource fetch per module, and ./data/roadmaps/ JSON cache.",
+      "introduced_bugs": []
+    },
+    {
+      "file": "media/video_generator.py",
+      "change_summary": "Full rewrite: replaced Manim subprocess (60s, requires LaTeX) with synchronous HTML5 Canvas animation generation. LLM extracts structured JSON (title, definition, key_points, formula, fun_fact), _build_html() creates a 6-slide Canvas 2D animated HTML file. Added generate_in_background() shim.",
+      "introduced_bugs": ["Relative output path ./media/animations/", "Google Fonts @import in generated HTML"]
+    },
+    {
+      "file": "dashboard/app.py",
+      "change_summary": "Major expansion: complete light theme redesign (white cards, purple gradient, Inter fonts), new page_loading_lesson() with 6 live progress cards, new page_lesson() with two-column layout and section pills, LESSON_SECTIONS constant, router updated with loading_lesson and loading_test, Start button navigates to loading_lesson.",
+      "introduced_bugs": ["test_interface.py not updated to light theme", "roadmap_display.py became dead code", "get_tutor_agent() singleton never called"]
+    }
+  ],
+  "recommendations": {
+    "immediate": [
+      "Add numpy to requirements.txt",
+      "Add langchain-core to requirements.txt",
+      "Remove manim, pdf2image, streamlit-autorefresh from requirements.txt",
+      "Fix state_graph.py module-level build_graph() instantiation — make lazy",
+      "Fix page_loading_lesson() to use get_tutor_agent() singleton instead of TutorAgent()",
+      "Fix proof_of_learning.py and certificate_generator.py to use absolute paths"
+    ],
+    "short_term": [
+      "Implement integrity/xp_engine.py with XP points and JSON persistence",
+      "Update test_interface.py CSS to light theme matching app.py",
+      "Fix tutor_agent.py run() to store all 6 sections in state",
+      "Remove Google Fonts @imports for offline compliance",
+      "Integrate affective_pacing.py into dashboard post-test flow",
+      "Delete or refactor dead roadmap_display.py"
+    ],
+    "long_term": [
+      "Implement real p2p_handshake.py with zeroconf mDNS for Phase 2",
+      "Add NetworkX graph persistence (JSON serialisation on mastery update)",
+      "Integrate dynamic domain concepts into KnowledgeGraph",
+      "Add progress dashboard page with mastery heat map and XP chart",
+      "Implement FastAPI REST layer for CLI/dashboard state sharing",
+      "Add comprehensive test coverage with mocked Ollama"
+    ]
+  },
+  "dependencies": {
+    "missing_from_requirements": ["numpy", "langchain-core"],
+    "unused_in_requirements": ["manim", "pdf2image", "Pillow", "streamlit-autorefresh"],
+    "stub_only": ["zeroconf"],
+    "high_risk": ["manim (requires LaTeX)", "pdf2image (requires poppler binary)", "opencv-python (50MB binary, Haar cascade accuracy limitations)"]
+  },
+  "health_score": 7.5,
+  "health_justification": "Core learning flow (domain→roadmap→lesson→test→certificate) works end-to-end. Sovereignty enforcement is consistent. Test engine, proctoring, and certificate generation are production-quality. Deductions: 2 missing files (XP engine, stress_relief), numpy missing from requirements, manim still listed, module-level graph init brittleness, unused tutor singleton, and dark/light theme mismatch in test interface.",
+  "ready_to_demo": true,
+  "ready_to_deploy": false,
+  "deploy_blockers": [
+    "numpy missing from requirements.txt — semantic grading fails on clean install",
+    "manim in requirements.txt — installation fails on systems without LaTeX",
+    "integrity/xp_engine.py missing — gamification absent",
+    "state_graph.py module-level instantiation — crashes if Ollama not running at startup",
+    "Relative CWD paths for mastery_log.jsonl and certificates directory",
+    "test_interface.py dark theme inside light app — visual regression"
+  ]
+}

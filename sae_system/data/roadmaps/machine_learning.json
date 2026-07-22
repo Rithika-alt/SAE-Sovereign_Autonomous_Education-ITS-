@@ -1,0 +1,247 @@
+{
+  "domain": "Machine Learning",
+  "total_weeks": 10,
+  "modules": [
+    {
+      "week": 1,
+      "module_id": "introduction_to_ml",
+      "title": "Introduction to ML",
+      "description": "This module provides an overview of Machine Learning, covering its history, types, and applications. Students will learn the basics of supervised and unsupervised learning.",
+      "concepts": [
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Neural Networks",
+        "Deep Learning"
+      ],
+      "prerequisites": [],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": []
+    },
+    {
+      "week": 2,
+      "module_id": "supervised_learning",
+      "title": "Supervised Learning",
+      "description": "This module introduces supervised learning, a type of machine learning where the model learns from labeled data. Students will learn about regression and classification algorithms and how to implement them in Python.",
+      "concepts": [
+        "Regression",
+        "Classification",
+        "Overfitting",
+        "Underfitting"
+      ],
+      "prerequisites": [
+        "Introduction to Machine Learning"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Regression",
+          "summary": "Regression or regressions may refer to:",
+          "url": "https://en.wikipedia.org/wiki/Regression"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "module_id": "unsupervised_learning",
+      "title": "Unsupervised Learning",
+      "description": "This module introduces the concepts of unsupervised learning, including clustering, dimensionality reduction, and density estimation. It covers various algorithms such as k-means, hierarchical clustering, and principal component analysis (PCA). The goal is to learn how to identify patterns in data without prior knowledge of the correct output.",
+      "concepts": [
+        "clustering",
+        "dimensionality_reduction",
+        "density_estimation",
+        "kmeans",
+        "hierarchical_clustering",
+        "principal_component_analysis"
+      ],
+      "prerequisites": [
+        "introduction_to_ml",
+        "supervised_learning"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Clustering",
+          "summary": "Clustering can refer to the following:",
+          "url": "https://en.wikipedia.org/wiki/Clustering"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "module_id": "deep_learning",
+      "title": "Deep Learning",
+      "description": "This module introduces the fundamentals of deep learning, including neural networks and convolutional neural networks. Students will learn how to build and train deep learning models using popular libraries such as TensorFlow or PyTorch.",
+      "concepts": [
+        "Neural Networks",
+        "Convolutional Neural Networks",
+        "Recurrent Neural Networks",
+        "Transfer Learning"
+      ],
+      "prerequisites": [
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Linear Algebra",
+        "Calculus"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": [
+        {
+          "title": "Neural network",
+          "summary": "\n\nA neural network is a group of interconnected units called neurons that send signals to one another. Neurons can be either biological cells or mathematical models. While individual neurons are simple, many of them together in a network can perform ",
+          "url": "https://en.wikipedia.org/wiki/Neural_network"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "module_id": "neural_networks",
+      "title": "Neural Networks",
+      "description": "This module covers the basics of neural networks, including types, architectures, and training techniques.",
+      "concepts": [
+        "backpropagation",
+        "activation functions",
+        "forward pass",
+        "convolutional layers"
+      ],
+      "prerequisites": [
+        "unsupervised_learning",
+        "deep_learning"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": [
+        {
+          "title": "Backpropagation",
+          "summary": "In machine learning, backpropagation is a gradient computation method commonly used for training a neural network in computing parameter updates.",
+          "url": "https://en.wikipedia.org/wiki/Backpropagation"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "module_id": "regression_analysis",
+      "title": "Regression Analysis",
+      "description": "This module covers the basics of regression analysis, including types of regression, model evaluation, and common algorithms.",
+      "concepts": [
+        "linear_regression",
+        "logistic_regression",
+        "ridge_regression",
+        "lasso_regression"
+      ],
+      "prerequisites": [
+        "deep_learning",
+        "neural_networks"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": [
+        {
+          "title": "Linear regression",
+          "summary": "In statistics, linear regression is a model that estimates the relationship between a scalar response and one or more explanatory variables.",
+          "url": "https://en.wikipedia.org/wiki/Linear_regression"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "module_id": "classification_algorithms",
+      "title": "Classification Algorithms",
+      "description": "This module covers the fundamental concepts and techniques of classification algorithms, including supervised learning methods for binary and multi-class problems.",
+      "concepts": [
+        "supervised_learning",
+        "binary_classification",
+        "multi_class_classification",
+        "overfitting",
+        "underfitting"
+      ],
+      "prerequisites": [
+        "neural_networks",
+        "regression_analysis"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": [
+        {
+          "title": "Supervised learning",
+          "summary": "In machine learning, supervised learning (SL) is a type of machine learning paradigm where an algorithm learns to map input data to a specific output based on example input-output pairs. This process involves training a statistical model using labele",
+          "url": "https://en.wikipedia.org/wiki/Supervised_learning"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "module_id": "clustering_techniques",
+      "title": "Clustering Techniques",
+      "description": "This module covers various clustering techniques used in machine learning, including K-Means and Hierarchical Clustering.",
+      "concepts": [
+        "K-Means",
+        "Hierarchical Clustering",
+        "DBSCAN",
+        "Expectation Maximization"
+      ],
+      "prerequisites": [
+        "regression_analysis",
+        "classification_algorithms"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": [
+        {
+          "title": "K-means clustering",
+          "summary": "k-means clustering is a method of vector quantization, originally from signal processing, that aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean. This results in a partitioning of ",
+          "url": "https://en.wikipedia.org/wiki/K-means_clustering"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "module_id": "feature_engineering",
+      "title": "Feature Engineering",
+      "description": "This module focuses on the process of creating new features from existing ones to improve model performance. It covers various techniques such as feature scaling, encoding categorical variables and handling missing values.",
+      "concepts": [
+        "dimensionality_reduction",
+        "feature_selection",
+        "feature_extraction",
+        "data_normalization"
+      ],
+      "prerequisites": [
+        "classification_algorithms",
+        "clustering_techniques"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": [
+        {
+          "title": "Dimensionality reduction",
+          "summary": "Dimensionality reduction, or dimension reduction, is the transformation of data from a high-dimensional space into a low-dimensional space so that the low-dimensional representation retains some meaningful properties of the original data, ideally clo",
+          "url": "https://en.wikipedia.org/wiki/Dimensionality_reduction"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "module_id": "model_evaluation",
+      "title": "Model Evaluation",
+      "description": "This module covers the evaluation of machine learning models, including metrics and techniques for assessing model performance.",
+      "concepts": [
+        "Evaluation Metrics",
+        "Cross-Validation",
+        "Overfitting and Underfitting",
+        "Hyperparameter Tuning"
+      ],
+      "prerequisites": [
+        "Clustering Techniques",
+        "Feature Engineering",
+        "Linear Algebra",
+        "Probability and Statistics"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": []
+    }
+  ]
+}

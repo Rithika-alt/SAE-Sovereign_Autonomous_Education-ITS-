@@ -1,0 +1,225 @@
+{
+  "domain": "Web Development",
+  "total_weeks": 10,
+  "modules": [
+    {
+      "week": 1,
+      "module_id": "html_fundamentals",
+      "title": "HTML Fundamentals",
+      "description": "This module covers the basics of HTML, including tags, attributes, and structure. Students will learn how to create a basic web page and understand the importance of semantic HTML. By the end of this module, students will be able to write clean and efficient HTML code.",
+      "concepts": [
+        "tags",
+        "attributes",
+        "structure",
+        "semantic_html"
+      ],
+      "prerequisites": [],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Tag",
+          "summary": "Tag, TAG, or tagging may refer to:",
+          "url": "https://en.wikipedia.org/wiki/Tag"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "module_id": "css_layouts",
+      "title": "CSS Layouts",
+      "description": "This module covers the basics of CSS layout, including display types, positioning, and box models. It also introduces flexible boxes and grid layouts. Students will learn how to create responsive and mobile-first layouts.",
+      "concepts": [
+        "display_types",
+        "positioning",
+        "box_models",
+        "flexible_boxes",
+        "grid_layouts"
+      ],
+      "prerequisites": [
+        "html_fundamentals"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": []
+    },
+    {
+      "week": 3,
+      "module_id": "javascript_basics",
+      "title": "JavaScript Basics",
+      "description": "This module covers the fundamental concepts of JavaScript, including data types, variables, control structures, and functions.",
+      "concepts": [
+        "variables",
+        "data_types",
+        "control_structures",
+        "functions"
+      ],
+      "prerequisites": [
+        "html_fundamentals",
+        "css_layouts"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Variable",
+          "summary": "Variable may refer to:Variable, a symbolic name associated with a value and whose associated value may be changed\nVariable (mathematics), a symbol that represents a quantity in a mathematical expression, as used in many sciences",
+          "url": "https://en.wikipedia.org/wiki/Variable"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "module_id": "responsive_design",
+      "title": "Responsive Design",
+      "description": "This module focuses on designing and developing websites that adapt to different screen sizes, orientations, and devices. Students will learn about media queries, flexible grids, and mobile-first design principles.",
+      "concepts": [
+        "Media Queries",
+        "Flexible Grids",
+        "Mobile-First Design",
+        "Responsive Images"
+      ],
+      "prerequisites": [
+        "css_layouts",
+        "javascript_basics"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": [
+        {
+          "title": "Media queries",
+          "summary": "\nMedia queries is a feature of CSS 3 allowing content rendering to adapt to different conditions such as screen resolution. It became a W3C recommended standard in June 2012, and is a cornerstone technology of responsive web design (RWD).",
+          "url": "https://en.wikipedia.org/wiki/Media_queries"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "module_id": "frontend_frameworks",
+      "title": "Frontend Frameworks",
+      "description": "This module will cover popular frontend frameworks like React, Angular, and Vue.js. Students will learn about their architecture, components, and best practices for building scalable web applications.",
+      "concepts": [
+        "concept1",
+        "concept2",
+        "concept3",
+        "concept4"
+      ],
+      "prerequisites": [
+        "javascript_basics",
+        "responsive_design"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 6,
+      "module_id": "back-end_development",
+      "title": "Back-end Development",
+      "description": "This module covers the fundamentals of back-end development, including server-side programming languages and frameworks.",
+      "concepts": [
+        "APIs",
+        "Server-side rendering",
+        "Database management",
+        "Security measures"
+      ],
+      "prerequisites": [
+        "Responsive Design",
+        "Frontend Frameworks",
+        "HTML/CSS basics"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": [
+        {
+          "title": "API",
+          "summary": "\nAn application programming interface (API) is a connection between computers or between computer programs. It is a type of software interface, offering a service to other pieces of software. A document or standard that describes how to build such a ",
+          "url": "https://en.wikipedia.org/wiki/API"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "module_id": "database_management",
+      "title": "Database Management",
+      "description": "This module covers the fundamental concepts of database management, including data modeling, normalization, and querying. It also touches upon database design principles and tools. Students will learn how to create, maintain, and optimize databases for efficient data storage and retrieval.",
+      "concepts": [
+        "Data Modeling",
+        "Normalization",
+        "Querying",
+        "Database Design Principles",
+        "Database Tools"
+      ],
+      "prerequisites": [
+        "Frontend Frameworks",
+        "Back-end Development"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": [
+        {
+          "title": "Data modeling",
+          "summary": "Data modeling in software engineering is the process of creating a data model for an information system by applying certain formal techniques. It may be applied as part of broader model-driven engineering (MDE) concept.",
+          "url": "https://en.wikipedia.org/wiki/Data_modeling"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "module_id": "api_integration",
+      "title": "API Integration",
+      "description": "This module focuses on integrating APIs into web applications, including API design, security, and testing.",
+      "concepts": [
+        "API Design Principles",
+        "API Security Best Practices",
+        "Testing APIs",
+        "API Documentation and Client-Side Integration"
+      ],
+      "prerequisites": [
+        "back-end_development",
+        "database_management"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": []
+    },
+    {
+      "week": 9,
+      "module_id": "security_and_authentication",
+      "title": "Security and Authentication",
+      "description": "This module covers the essential concepts of security and authentication in web development, including secure coding practices, password hashing, and user authentication protocols.",
+      "concepts": [
+        "Authentication Protocols",
+        "Secure Coding Practices",
+        "Password Hashing",
+        "Data Encryption"
+      ],
+      "prerequisites": [
+        "database_management",
+        "api_integration"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": []
+    },
+    {
+      "week": 10,
+      "module_id": "full-stack_development",
+      "title": "Full-stack Development",
+      "description": "This module will cover the full stack development process, including front-end and back-end development. Students will learn how to integrate APIs, implement security measures, and authenticate users.",
+      "concepts": [
+        "concept1",
+        "concept2",
+        "concept3",
+        "concept4"
+      ],
+      "prerequisites": [
+        "api_integration",
+        "security_and_authentication"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": []
+    }
+  ]
+}

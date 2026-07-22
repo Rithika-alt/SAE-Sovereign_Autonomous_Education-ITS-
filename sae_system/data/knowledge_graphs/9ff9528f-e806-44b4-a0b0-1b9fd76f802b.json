@@ -1,0 +1,529 @@
+{
+  "student_id": "9ff9528f-e806-44b4-a0b0-1b9fd76f802b",
+  "last_saved": "2026-05-17T12:17:41.113426",
+  "nodes": [
+    {
+      "concept_id": "supervised_learning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "unsupervised_learning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "introduction_to_ml",
+      "week": 1
+    },
+    {
+      "concept_id": "neural_networks",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "deep_learning",
+      "week": 4
+    },
+    {
+      "concept_id": "deep_learning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "introduction_to_ml",
+      "week": 1
+    },
+    {
+      "concept_id": "regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "supervised_learning",
+      "week": 2
+    },
+    {
+      "concept_id": "classification",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "supervised_learning",
+      "week": 2
+    },
+    {
+      "concept_id": "overfitting",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "underfitting",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "clustering",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "unsupervised_learning",
+      "week": 3
+    },
+    {
+      "concept_id": "dimensionality_reduction",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "feature_engineering",
+      "week": 9
+    },
+    {
+      "concept_id": "density_estimation",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "unsupervised_learning",
+      "week": 3
+    },
+    {
+      "concept_id": "kmeans",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "unsupervised_learning",
+      "week": 3
+    },
+    {
+      "concept_id": "hierarchical_clustering",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "clustering_techniques",
+      "week": 8
+    },
+    {
+      "concept_id": "principal_component_analysis",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "unsupervised_learning",
+      "week": 3
+    },
+    {
+      "concept_id": "convolutional_neural_networks",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "deep_learning",
+      "week": 4
+    },
+    {
+      "concept_id": "recurrent_neural_networks",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "deep_learning",
+      "week": 4
+    },
+    {
+      "concept_id": "transfer_learning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "deep_learning",
+      "week": 4
+    },
+    {
+      "concept_id": "backpropagation",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "neural_networks",
+      "week": 5
+    },
+    {
+      "concept_id": "activation_functions",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "neural_networks",
+      "week": 5
+    },
+    {
+      "concept_id": "forward_pass",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "neural_networks",
+      "week": 5
+    },
+    {
+      "concept_id": "convolutional_layers",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "neural_networks",
+      "week": 5
+    },
+    {
+      "concept_id": "linear_regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "regression_analysis",
+      "week": 6
+    },
+    {
+      "concept_id": "logistic_regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "regression_analysis",
+      "week": 6
+    },
+    {
+      "concept_id": "ridge_regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "regression_analysis",
+      "week": 6
+    },
+    {
+      "concept_id": "lasso_regression",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "regression_analysis",
+      "week": 6
+    },
+    {
+      "concept_id": "binary_classification",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "multi_class_classification",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "classification_algorithms",
+      "week": 7
+    },
+    {
+      "concept_id": "k-means",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "clustering_techniques",
+      "week": 8
+    },
+    {
+      "concept_id": "dbscan",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "clustering_techniques",
+      "week": 8
+    },
+    {
+      "concept_id": "expectation_maximization",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "clustering_techniques",
+      "week": 8
+    },
+    {
+      "concept_id": "feature_selection",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "feature_engineering",
+      "week": 9
+    },
+    {
+      "concept_id": "feature_extraction",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "feature_engineering",
+      "week": 9
+    },
+    {
+      "concept_id": "data_normalization",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "feature_engineering",
+      "week": 9
+    },
+    {
+      "concept_id": "evaluation_metrics",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "model_evaluation",
+      "week": 10
+    },
+    {
+      "concept_id": "cross-validation",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "model_evaluation",
+      "week": 10
+    },
+    {
+      "concept_id": "overfitting_and_underfitting",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "model_evaluation",
+      "week": 10
+    },
+    {
+      "concept_id": "hyperparameter_tuning",
+      "domain": "Machine Learning",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "model_evaluation",
+      "week": 10
+    }
+  ],
+  "edges": [
+    {
+      "from_concept": "supervised_learning",
+      "to_concept": "unsupervised_learning"
+    },
+    {
+      "from_concept": "supervised_learning",
+      "to_concept": "binary_classification"
+    },
+    {
+      "from_concept": "unsupervised_learning",
+      "to_concept": "neural_networks"
+    },
+    {
+      "from_concept": "neural_networks",
+      "to_concept": "deep_learning"
+    },
+    {
+      "from_concept": "neural_networks",
+      "to_concept": "convolutional_neural_networks"
+    },
+    {
+      "from_concept": "deep_learning",
+      "to_concept": "regression"
+    },
+    {
+      "from_concept": "deep_learning",
+      "to_concept": "clustering"
+    },
+    {
+      "from_concept": "regression",
+      "to_concept": "classification"
+    },
+    {
+      "from_concept": "classification",
+      "to_concept": "overfitting"
+    },
+    {
+      "from_concept": "overfitting",
+      "to_concept": "underfitting"
+    },
+    {
+      "from_concept": "underfitting",
+      "to_concept": "clustering"
+    },
+    {
+      "from_concept": "underfitting",
+      "to_concept": "k-means"
+    },
+    {
+      "from_concept": "underfitting",
+      "to_concept": "dimensionality_reduction"
+    },
+    {
+      "from_concept": "clustering",
+      "to_concept": "dimensionality_reduction"
+    },
+    {
+      "from_concept": "dimensionality_reduction",
+      "to_concept": "density_estimation"
+    },
+    {
+      "from_concept": "dimensionality_reduction",
+      "to_concept": "feature_selection"
+    },
+    {
+      "from_concept": "density_estimation",
+      "to_concept": "kmeans"
+    },
+    {
+      "from_concept": "kmeans",
+      "to_concept": "hierarchical_clustering"
+    },
+    {
+      "from_concept": "hierarchical_clustering",
+      "to_concept": "principal_component_analysis"
+    },
+    {
+      "from_concept": "hierarchical_clustering",
+      "to_concept": "dbscan"
+    },
+    {
+      "from_concept": "principal_component_analysis",
+      "to_concept": "neural_networks"
+    },
+    {
+      "from_concept": "principal_component_analysis",
+      "to_concept": "backpropagation"
+    },
+    {
+      "from_concept": "convolutional_neural_networks",
+      "to_concept": "recurrent_neural_networks"
+    },
+    {
+      "from_concept": "recurrent_neural_networks",
+      "to_concept": "transfer_learning"
+    },
+    {
+      "from_concept": "transfer_learning",
+      "to_concept": "backpropagation"
+    },
+    {
+      "from_concept": "transfer_learning",
+      "to_concept": "linear_regression"
+    },
+    {
+      "from_concept": "backpropagation",
+      "to_concept": "activation_functions"
+    },
+    {
+      "from_concept": "activation_functions",
+      "to_concept": "forward_pass"
+    },
+    {
+      "from_concept": "forward_pass",
+      "to_concept": "convolutional_layers"
+    },
+    {
+      "from_concept": "convolutional_layers",
+      "to_concept": "linear_regression"
+    },
+    {
+      "from_concept": "convolutional_layers",
+      "to_concept": "supervised_learning"
+    },
+    {
+      "from_concept": "linear_regression",
+      "to_concept": "logistic_regression"
+    },
+    {
+      "from_concept": "logistic_regression",
+      "to_concept": "ridge_regression"
+    },
+    {
+      "from_concept": "ridge_regression",
+      "to_concept": "lasso_regression"
+    },
+    {
+      "from_concept": "lasso_regression",
+      "to_concept": "supervised_learning"
+    },
+    {
+      "from_concept": "lasso_regression",
+      "to_concept": "k-means"
+    },
+    {
+      "from_concept": "binary_classification",
+      "to_concept": "multi_class_classification"
+    },
+    {
+      "from_concept": "multi_class_classification",
+      "to_concept": "overfitting"
+    },
+    {
+      "from_concept": "k-means",
+      "to_concept": "hierarchical_clustering"
+    },
+    {
+      "from_concept": "dbscan",
+      "to_concept": "expectation_maximization"
+    },
+    {
+      "from_concept": "expectation_maximization",
+      "to_concept": "dimensionality_reduction"
+    },
+    {
+      "from_concept": "feature_selection",
+      "to_concept": "feature_extraction"
+    },
+    {
+      "from_concept": "feature_extraction",
+      "to_concept": "data_normalization"
+    },
+    {
+      "from_concept": "data_normalization",
+      "to_concept": "evaluation_metrics"
+    },
+    {
+      "from_concept": "evaluation_metrics",
+      "to_concept": "cross-validation"
+    },
+    {
+      "from_concept": "cross-validation",
+      "to_concept": "overfitting_and_underfitting"
+    },
+    {
+      "from_concept": "overfitting_and_underfitting",
+      "to_concept": "hyperparameter_tuning"
+    }
+  ]
+}

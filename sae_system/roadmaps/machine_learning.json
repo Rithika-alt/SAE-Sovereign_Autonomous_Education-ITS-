@@ -1,0 +1,196 @@
+{
+  "domain": "Machine Learning",
+  "total_weeks": 10,
+  "modules": [
+    {
+      "week": 1,
+      "module_id": "ml_basics",
+      "title": "Machine Learning Basics",
+      "description": "Introduction to Machine Learning, types of ML, supervised/unsupervised learning.",
+      "concepts": [
+        "Supervised vs Unsupervised Learning",
+        "Types of Machine Learning"
+      ],
+      "prerequisites": [],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": []
+    },
+    {
+      "week": 2,
+      "module_id": "ml_data_preprocessing",
+      "title": "Data Preprocessing for ML",
+      "description": "Handling missing data, feature scaling, encoding categorical variables.",
+      "concepts": [
+        "Handling Missing Data",
+        "Feature Scaling",
+        "Encoding Categorical Variables"
+      ],
+      "prerequisites": [
+        "ml_basics"
+      ],
+      "estimated_hours": 8,
+      "difficulty": "Beginner",
+      "resources": []
+    },
+    {
+      "week": 3,
+      "module_id": "supervised_learning",
+      "title": "Supervised Learning Algorithms",
+      "description": "Linear Regression, Logistic Regression, Decision Trees.",
+      "concepts": [
+        "Linear Regression",
+        "Logistic Regression",
+        "Decision Trees"
+      ],
+      "prerequisites": [
+        "ml_data_preprocessing",
+        "ml_basics"
+      ],
+      "estimated_hours": 12,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Linear regression",
+          "summary": "In statistics, linear regression is a model that estimates the relationship between a scalar response and one or more explanatory variables.",
+          "url": "https://en.wikipedia.org/wiki/Linear_regression"
+        },
+        {
+          "title": "Logistic regression",
+          "summary": "In statistics, a logistic model is a statistical model that models the log-odds of an event as a linear combination of one or more independent variables. In regression analysis, logistic regression estimates the parameters of a logistic model. In binary logistic regression there is a single binary dependent variable, coded by an indicator variable, where the two values are labeled \"0\" and \"1\", while the independent variables can each be a binary variable or a continuous variable. The corresponding probability of the value labeled \"1\" can vary between 0 and 1, hence the labeling; the function that converts log-odds to probability is the logistic function, hence the name. The unit of measurement for the log-odds scale is called a logit, from logistic unit, hence the alternative names. See § Background and § Definition for formal mathematics, and § Example for a worked example.",
+          "url": "https://en.wikipedia.org/wiki/Logistic_regression"
+        },
+        {
+          "title": "Decision tree",
+          "summary": "A decision tree is a decision support recursive partitioning structure that uses a tree-like model of decisions and their possible consequences, including chance event outcomes, resource costs, and utility. It is one way to display an algorithm that only contains conditional control statements.",
+          "url": "https://en.wikipedia.org/wiki/Decision_tree"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "module_id": "unsupervised_learning",
+      "title": "Unsupervised Learning Algorithms",
+      "description": "K-Means Clustering, Hierarchical Clustering.",
+      "concepts": [
+        "K-Means Clustering",
+        "Hierarchical Clustering"
+      ],
+      "prerequisites": [
+        "ml_data_preprocessing",
+        "ml_basics"
+      ],
+      "estimated_hours": 10,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Hierarchical clustering",
+          "summary": "In data mining and statistics, hierarchical clustering is a method of cluster analysis that seeks to build a hierarchy of clusters. Strategies for hierarchical clustering generally fall into two categories:Agglomerative: Agglomerative clustering, often referred to as a \"bottom-up\" approach, begins with each data point as an individual cluster. At each step, the algorithm merges the two most similar clusters based on a chosen distance metric and linkage criterion. This process continues until all data points are combined into a single cluster or a stopping criterion is met. Agglomerative methods are more commonly used due to their simplicity and computational efficiency for small to medium-sized datasets.\nDivisive: Divisive clustering, known as a \"top-down\" approach, starts with all data points in a single cluster and recursively splits the cluster into smaller ones. At each step, the algorithm selects a cluster and divides it into two or more subsets, often using a criterion such as maximizing the distance between resulting clusters. Divisive methods are less common but can be useful when the goal is to identify large, distinct clusters first.",
+          "url": "https://en.wikipedia.org/wiki/Hierarchical_clustering"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "module_id": "model_selection",
+      "title": "Model Selection and Evaluation",
+      "description": "Cross Validation, Metrics for Model Evaluation.",
+      "concepts": [
+        "Cross Validation",
+        "Metrics for Model Evaluation"
+      ],
+      "prerequisites": [
+        "ml_supervised_learning",
+        "ml_unsupervised_learning"
+      ],
+      "estimated_hours": 8,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 6,
+      "module_id": "deep_learning",
+      "title": "Deep Learning Fundamentals",
+      "description": "Introduction to Deep Neural Networks, Convolutional Neural Networks.",
+      "concepts": [
+        "Introduction to Deep Neural Networks",
+        "Convolutional Neural Networks"
+      ],
+      "prerequisites": [
+        "ml_supervised_learning",
+        "ml_unsupervised_learning"
+      ],
+      "estimated_hours": 15,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 7,
+      "module_id": "natural_language_processing",
+      "title": "Natural Language Processing with ML",
+      "description": "Text Preprocessing, Sentiment Analysis, Topic Modeling.",
+      "concepts": [
+        "Text Preprocessing",
+        "Sentiment Analysis",
+        "Topic Modeling"
+      ],
+      "prerequisites": [
+        "ml_supervised_learning",
+        "deep_learning"
+      ],
+      "estimated_hours": 12,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 8,
+      "module_id": "advanced_topics",
+      "title": "Advanced Machine Learning Topics",
+      "description": "Reinforcement Learning, Generative Adversarial Networks.",
+      "concepts": [
+        "Reinforcement Learning",
+        "Generative Adversarial Networks"
+      ],
+      "prerequisites": [
+        "ml_supervised_learning",
+        "deep_learning"
+      ],
+      "estimated_hours": 15,
+      "difficulty": "Advanced",
+      "resources": []
+    },
+    {
+      "week": 9,
+      "module_id": "case_studies",
+      "title": "Real-World Machine Learning Applications",
+      "description": "Analyzing a real-world dataset, building a predictive model.",
+      "concepts": [
+        "Analyzing a Real-World Dataset",
+        "Building a Predictive Model"
+      ],
+      "prerequisites": [
+        "ml_supervised_learning",
+        "advanced_topics"
+      ],
+      "estimated_hours": 15,
+      "difficulty": "Advanced",
+      "resources": []
+    },
+    {
+      "week": 10,
+      "module_id": "final_project",
+      "title": "Final Machine Learning Project",
+      "description": "Applying learned concepts to a real-world project.",
+      "concepts": [
+        "Applying Learned Concepts",
+        "Real-World Application"
+      ],
+      "prerequisites": [
+        "all previous modules"
+      ],
+      "estimated_hours": 20,
+      "difficulty": "Advanced",
+      "resources": []
+    }
+  ]
+}

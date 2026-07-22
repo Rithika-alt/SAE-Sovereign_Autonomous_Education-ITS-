@@ -1,0 +1,199 @@
+{
+  "domain": "Data Science",
+  "total_weeks": 10,
+  "modules": [
+    {
+      "week": 1,
+      "module_id": "data_fundamentals",
+      "title": "Data Fundamentals",
+      "description": "Introduction to data science, types of data, and data visualization.",
+      "concepts": [
+        "Data Types",
+        "Data Visualization",
+        "Data Cleaning",
+        "Data Storage"
+      ],
+      "prerequisites": [],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": []
+    },
+    {
+      "week": 2,
+      "module_id": "exploratory_data_analysis",
+      "title": "Exploratory Data Analysis",
+      "description": "This module introduces students to the process of exploratory data analysis, including data cleaning, visualization, and summary statistics. Students will learn how to use various tools and techniques to understand the distribution of variables, identify patterns, and make informed decisions. By the end of this module, students will be able to apply exploratory data analysis techniques to real-world datasets.",
+      "concepts": [
+        "Data Cleaning",
+        "Data Visualization",
+        "Summary Statistics",
+        "Descriptive Statistics"
+      ],
+      "prerequisites": [
+        "data_fundamentals"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Data cleansing",
+          "summary": "Data cleansing or data cleaning is the process of identifying and correcting corrupt, inaccurate, or irrelevant records from a dataset, table, or database. It involves detecting incomplete, incorrect, or inaccurate parts of the data and then replacin",
+          "url": "https://en.wikipedia.org/wiki/Data_cleansing"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "module_id": "linear_regression",
+      "title": "Linear Regression",
+      "description": "This module covers the basics of linear regression, including data preparation, model selection, and interpretation. Students will learn how to implement linear regression using popular machine learning libraries and understand its limitations. By the end of this module, students should be able to apply linear regression to real-world problems.",
+      "concepts": [
+        "linear_equation",
+        "regression_analysis",
+        "model_selection",
+        "interpretation"
+      ],
+      "prerequisites": [
+        "data_fundamentals",
+        "exploratory_data_analysis"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Beginner",
+      "resources": [
+        {
+          "title": "Linear equation",
+          "summary": "In mathematics, a linear equation is an equation that may be put in the form\n where  are the variables, and  are the coefficients, which are often real numbers. The coefficients may be considered as parameters of the equation and may be arbitrary exp",
+          "url": "https://en.wikipedia.org/wiki/Linear_equation"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "module_id": "machine_learning_basics",
+      "title": "Machine Learning Basics",
+      "description": "This module covers the fundamentals of machine learning, including supervised and unsupervised learning, regression, classification, and model evaluation.",
+      "concepts": [
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Regression Analysis",
+        "Classification Algorithms"
+      ],
+      "prerequisites": [
+        "Exploratory Data Analysis",
+        "Linear Regression"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 6,
+      "module_id": "statistical_inference",
+      "title": "Statistical Inference",
+      "description": "This module covers the principles and techniques of statistical inference, including hypothesis testing and confidence intervals.",
+      "concepts": [
+        "hypothesis_testing",
+        "confidence_intervals",
+        "p-values",
+        "Bayes_theory"
+      ],
+      "prerequisites": [
+        "machine_learning_basics",
+        "data_visualization"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": [
+        {
+          "title": "Statistical hypothesis test",
+          "summary": "A statistical hypothesis test is a method of statistical inference used to decide whether the data provide sufficient evidence to reject a particular hypothesis. A statistical hypothesis test typically involves a calculation of a test statistic. Then",
+          "url": "https://en.wikipedia.org/wiki/Statistical_hypothesis_test"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "module_id": "time_series_analysis",
+      "title": "Time Series Analysis",
+      "description": "This module covers the analysis of time series data, including trend identification, seasonality detection, and forecasting. It also introduces techniques for handling missing values and outliers in time series data.",
+      "concepts": [
+        "Trend Identification",
+        "Seasonality Detection",
+        "Exponential Smoothing",
+        "ARIMA Modeling"
+      ],
+      "prerequisites": [
+        "Data Visualization",
+        "Statistical Inference"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Intermediate",
+      "resources": []
+    },
+    {
+      "week": 8,
+      "module_id": "deep_learning",
+      "title": "Deep Learning",
+      "description": "This module covers the fundamentals of deep learning, including neural networks and convolutional neural networks. It also explores advanced topics such as recurrent neural networks and transfer learning.",
+      "concepts": [
+        "Neural Networks",
+        "Convolutional Neural Networks",
+        "Recurrent Neural Networks",
+        "Transfer Learning"
+      ],
+      "prerequisites": [
+        "Statistical Inference",
+        "Time Series Analysis"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": [
+        {
+          "title": "Neural network",
+          "summary": "\n\nA neural network is a group of interconnected units called neurons that send signals to one another. Neurons can be either biological cells or mathematical models. While individual neurons are simple, many of them together in a network can perform ",
+          "url": "https://en.wikipedia.org/wiki/Neural_network"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "module_id": "text_analysis",
+      "title": "Text Analysis",
+      "description": "This module focuses on extracting insights from unstructured text data, including natural language processing and machine learning techniques.",
+      "concepts": [
+        "Natural Language Processing (NLP)",
+        "Tokenization",
+        "Stopword removal",
+        "Stemming and Lemmatization",
+        "Sentiment Analysis",
+        "Topic Modeling"
+      ],
+      "prerequisites": [
+        "time_series_analysis",
+        "deep_learning"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": []
+    },
+    {
+      "week": 10,
+      "module_id": "predictive_modeling",
+      "title": "Predictive Modeling",
+      "description": "This module focuses on advanced techniques for building predictive models, including ensemble methods and model selection. Students will learn how to evaluate and compare different models using metrics such as accuracy and cross-validation. They will also explore the use of regularization techniques to prevent overfitting.",
+      "concepts": [
+        "concept1",
+        "concept2",
+        "concept3",
+        "concept4"
+      ],
+      "prerequisites": [
+        "deep_learning",
+        "text_analysis"
+      ],
+      "estimated_hours": 5,
+      "difficulty": "Advanced",
+      "resources": []
+    }
+  ]
+}

@@ -1,0 +1,439 @@
+{
+  "student_id": "1476a762-4af3-45e4-86c7-ed29ba65fcc7",
+  "last_saved": "2026-05-17T12:44:38.109833",
+  "nodes": [
+    {
+      "concept_id": "wave-particle_duality",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "quantum_basics",
+      "week": 1
+    },
+    {
+      "concept_id": "superposition",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "superposition_and_entanglement",
+      "week": 2
+    },
+    {
+      "concept_id": "entanglement",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "superposition_and_entanglement",
+      "week": 2
+    },
+    {
+      "concept_id": "quantum_measurement",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "superposition_and_entanglement",
+      "week": 2
+    },
+    {
+      "concept_id": "quantum_information_processing",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "superposition_and_entanglement",
+      "week": 2
+    },
+    {
+      "concept_id": "quantum_gates",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_computing_hardware",
+      "week": 7
+    },
+    {
+      "concept_id": "pauli_matrices",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_gates_and_operations",
+      "week": 3
+    },
+    {
+      "concept_id": "gate_operations",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_gates_and_operations",
+      "week": 3
+    },
+    {
+      "concept_id": "quantum_circuit_model",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_gates_and_operations",
+      "week": 3
+    },
+    {
+      "concept_id": "quantum_algorithms",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "quantum_algorithms",
+      "week": 4
+    },
+    {
+      "concept_id": "shor's_algorithm",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_algorithms",
+      "week": 4
+    },
+    {
+      "concept_id": "grover's_algorithm",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_algorithms",
+      "week": 4
+    },
+    {
+      "concept_id": "quantum_approximate_optimization_algorithm_(qaoa)",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_algorithms",
+      "week": 4
+    },
+    {
+      "concept_id": "quantum_circuit_simulation",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_algorithms",
+      "week": 4
+    },
+    {
+      "concept_id": "fault-tolerant_quantum_computation",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "quantum_error_correction",
+      "week": 6
+    },
+    {
+      "concept_id": "surface_codes",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_error_correction",
+      "week": 6
+    },
+    {
+      "concept_id": "quantum_error_correction_codes",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_error_correction",
+      "week": 6
+    },
+    {
+      "concept_id": "quantum_error_mitigation",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_error_correction",
+      "week": 6
+    },
+    {
+      "concept_id": "qubit_design",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "quantum_computing_hardware",
+      "week": 7
+    },
+    {
+      "concept_id": "quantum_error_correction",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_simulation",
+      "week": 8
+    },
+    {
+      "concept_id": "quantum_architectures",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_computing_hardware",
+      "week": 7
+    },
+    {
+      "concept_id": "quantum_simulation",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "quantum_simulation",
+      "week": 8
+    },
+    {
+      "concept_id": "quantum_noise_mitigation",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_simulation",
+      "week": 8
+    },
+    {
+      "concept_id": "many_body_systems",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_simulation",
+      "week": 8
+    },
+    {
+      "concept_id": "quantum_neural_networks",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "quantum_machine_learning",
+      "week": 9
+    },
+    {
+      "concept_id": "quantum_k-means_clustering",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_machine_learning",
+      "week": 9
+    },
+    {
+      "concept_id": "quantum_support_vector_machines",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_machine_learning",
+      "week": 9
+    },
+    {
+      "concept_id": "quantum_optimization",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_machine_learning",
+      "week": 9
+    },
+    {
+      "concept_id": "quantum_key_distribution",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": true,
+      "module_id": "quantum_cryptography",
+      "week": 10
+    },
+    {
+      "concept_id": "entangled_particles",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_cryptography",
+      "week": 10
+    },
+    {
+      "concept_id": "quantum_random_number_generation",
+      "domain": "Quantum Computing",
+      "mastery": 0.0,
+      "last_reviewed": null,
+      "is_primary": false,
+      "module_id": "quantum_cryptography",
+      "week": 10
+    }
+  ],
+  "edges": [
+    {
+      "from_concept": "wave-particle_duality",
+      "to_concept": "superposition"
+    },
+    {
+      "from_concept": "superposition",
+      "to_concept": "entanglement"
+    },
+    {
+      "from_concept": "entanglement",
+      "to_concept": "quantum_measurement"
+    },
+    {
+      "from_concept": "quantum_measurement",
+      "to_concept": "quantum_information_processing"
+    },
+    {
+      "from_concept": "quantum_measurement",
+      "to_concept": "superposition"
+    },
+    {
+      "from_concept": "quantum_measurement",
+      "to_concept": "quantum_gates"
+    },
+    {
+      "from_concept": "quantum_information_processing",
+      "to_concept": "quantum_gates"
+    },
+    {
+      "from_concept": "quantum_information_processing",
+      "to_concept": "quantum_algorithms"
+    },
+    {
+      "from_concept": "quantum_gates",
+      "to_concept": "pauli_matrices"
+    },
+    {
+      "from_concept": "quantum_gates",
+      "to_concept": "quantum_error_correction"
+    },
+    {
+      "from_concept": "pauli_matrices",
+      "to_concept": "gate_operations"
+    },
+    {
+      "from_concept": "gate_operations",
+      "to_concept": "quantum_circuit_model"
+    },
+    {
+      "from_concept": "quantum_circuit_model",
+      "to_concept": "quantum_algorithms"
+    },
+    {
+      "from_concept": "quantum_algorithms",
+      "to_concept": "shor's_algorithm"
+    },
+    {
+      "from_concept": "shor's_algorithm",
+      "to_concept": "grover's_algorithm"
+    },
+    {
+      "from_concept": "grover's_algorithm",
+      "to_concept": "quantum_approximate_optimization_algorithm_(qaoa)"
+    },
+    {
+      "from_concept": "quantum_approximate_optimization_algorithm_(qaoa)",
+      "to_concept": "quantum_circuit_simulation"
+    },
+    {
+      "from_concept": "quantum_circuit_simulation",
+      "to_concept": "fault-tolerant_quantum_computation"
+    },
+    {
+      "from_concept": "fault-tolerant_quantum_computation",
+      "to_concept": "surface_codes"
+    },
+    {
+      "from_concept": "surface_codes",
+      "to_concept": "quantum_error_correction_codes"
+    },
+    {
+      "from_concept": "quantum_error_correction_codes",
+      "to_concept": "quantum_error_mitigation"
+    },
+    {
+      "from_concept": "quantum_error_mitigation",
+      "to_concept": "qubit_design"
+    },
+    {
+      "from_concept": "quantum_error_mitigation",
+      "to_concept": "quantum_simulation"
+    },
+    {
+      "from_concept": "qubit_design",
+      "to_concept": "quantum_gates"
+    },
+    {
+      "from_concept": "quantum_error_correction",
+      "to_concept": "quantum_architectures"
+    },
+    {
+      "from_concept": "quantum_error_correction",
+      "to_concept": "quantum_noise_mitigation"
+    },
+    {
+      "from_concept": "quantum_architectures",
+      "to_concept": "quantum_simulation"
+    },
+    {
+      "from_concept": "quantum_architectures",
+      "to_concept": "quantum_neural_networks"
+    },
+    {
+      "from_concept": "quantum_simulation",
+      "to_concept": "quantum_error_correction"
+    },
+    {
+      "from_concept": "quantum_noise_mitigation",
+      "to_concept": "many_body_systems"
+    },
+    {
+      "from_concept": "many_body_systems",
+      "to_concept": "quantum_neural_networks"
+    },
+    {
+      "from_concept": "many_body_systems",
+      "to_concept": "quantum_key_distribution"
+    },
+    {
+      "from_concept": "quantum_neural_networks",
+      "to_concept": "quantum_k-means_clustering"
+    },
+    {
+      "from_concept": "quantum_k-means_clustering",
+      "to_concept": "quantum_support_vector_machines"
+    },
+    {
+      "from_concept": "quantum_support_vector_machines",
+      "to_concept": "quantum_optimization"
+    },
+    {
+      "from_concept": "quantum_optimization",
+      "to_concept": "quantum_key_distribution"
+    },
+    {
+      "from_concept": "quantum_key_distribution",
+      "to_concept": "entangled_particles"
+    },
+    {
+      "from_concept": "entangled_particles",
+      "to_concept": "quantum_random_number_generation"
+    }
+  ]
+}

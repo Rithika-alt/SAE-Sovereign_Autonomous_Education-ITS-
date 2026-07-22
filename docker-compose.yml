@@ -1,0 +1,110 @@
+version: "3.9"
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL — persistent storage for students, lessons, results, grades
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: sae_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       sae_db
+      POSTGRES_USER:     sae_user
+      POSTGRES_PASSWORD: sae_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init_db:/docker-entrypoint-initdb.d   # SQL init scripts run on first start
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sae_user -d sae_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Redis — in-memory cache for roadmaps, lessons, session state
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: sae_redis
+    restart: unless-stopped
+    command: >
+      redis-server
+      --maxmemory 512mb
+      --maxmemory-policy allkeys-lru
+      --save 60 1
+      --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Neo4j — graph database for student knowledge graphs (optional visual browser)
+  # ---------------------------------------------------------------------------
+  neo4j:
+    image: neo4j:5
+    container_name: sae-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/saesystem
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 1G
+    volumes:
+      - ./data/neo4j:/data                    # persists graph data on host machine
+    ports:
+      - "7474:7474"                           # Neo4j browser UI
+      - "7687:7687"                           # Bolt protocol
+
+  # ---------------------------------------------------------------------------
+  # SAE Dashboard — Streamlit app
+  # ---------------------------------------------------------------------------
+  dashboard:
+    build:
+      context: ./sae_system
+      dockerfile: ../Dockerfile
+    container_name: sae_dashboard
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      neo4j:
+        condition: service_started
+    environment:
+      # Ollama must run on the host machine — localhost inside a container
+      # refers to the container itself, so we use host-gateway instead
+      OLLAMA_BASE_URL:        http://host.docker.internal:11434
+      OLLAMA_MODEL:           llama3.2
+      DATABASE_URL:           postgresql://sae_user:sae_password@postgres:5432/sae_db
+      REDIS_URL:              redis://redis:6379/0
+      SEMANTIC_PASS_THRESHOLD: "0.60"
+      # Neo4j — containers talk by service name, not localhost
+      USE_NEO4J:              "true"
+      NEO4J_URI:              bolt://neo4j:7687
+      NEO4J_USER:             neo4j
+      NEO4J_PASSWORD:         saesystem
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # lets the container reach host Ollama
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./sae_system:/app                     # live-reload during development
+      - chroma_data:/app/chroma_db
+      - roadmap_cache:/app/data/roadmaps
+      - ./data/knowledge_graphs:/app/data/knowledge_graphs
+
+volumes:
+  postgres_data:
+  redis_data:
+  chroma_data:
+  roadmap_cache:

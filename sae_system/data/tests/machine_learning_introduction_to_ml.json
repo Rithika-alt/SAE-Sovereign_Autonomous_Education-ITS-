@@ -1,0 +1,133 @@
+[
+  {
+    "question_id": "q1",
+    "question": "What does supervised learning require?",
+    "type": "mcq",
+    "options": [
+      "Labelled training data with input-output pairs",
+      "Only unlabelled data with no target variable",
+      "A reward signal from the environment",
+      "No data at all \u2014 it learns from rules"
+    ],
+    "correct_answer": "Labelled training data with input-output pairs",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q2",
+    "question": "What is the goal of supervised learning?",
+    "type": "mcq",
+    "options": [
+      "To develop a model that can accurately predict output for new data",
+      "To learn from human-annotated data and improve performance over time",
+      "To minimize an error function to find the best parameters",
+      "To recognize specific characteristics of each bird species"
+    ],
+    "correct_answer": "To learn from human-annotated data and improve performance over time",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q3",
+    "question": "What is the core principle of supervised learning?",
+    "type": "mcq",
+    "options": [
+      "The model learns from a set of pre-defined rules or relationships between input features and output labels",
+      "The algorithm is provided with unlabelled data and no target variable",
+      "The goal is to minimize an error function to find the best parameters",
+      "Supervised learning requires only unlabelled data"
+    ],
+    "correct_answer": "The model learns from a set of pre-defined rules or relationships between input features and output labels",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q4",
+    "question": "What is the formula for calculating the error function in supervised learning?",
+    "type": "short_answer",
+    "options": [],
+    "correct_answer": "Refer to lesson material for the model answer.",
+    "explanation": "See lesson material.",
+    "marks": 5,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q5",
+    "question": "Is supervised learning suitable for all types of machine learning tasks?",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True",
+    "explanation": "See lesson material.",
+    "marks": 1,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q6",
+    "question": "What is the purpose of testing data in supervised learning?",
+    "type": "mcq",
+    "options": [
+      "To train the model on labeled examples",
+      "To evaluate the model's performance on unseen data",
+      "To develop a model that can accurately predict output for new data",
+      "To learn from human-annotated data and improve performance over time"
+    ],
+    "correct_answer": "To evaluate the model's performance on unseen data",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q7",
+    "question": "What is a key definition in supervised learning?",
+    "type": "short_answer",
+    "options": [],
+    "correct_answer": "Refer to lesson material for the model answer.",
+    "explanation": "See lesson material.",
+    "marks": 5,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q8",
+    "question": "Is supervised learning suitable for tasks that require no labeled data?",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True",
+    "explanation": "See lesson material.",
+    "marks": 1,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q9",
+    "question": "What is the relationship between input features and output labels in supervised learning?",
+    "type": "mcq",
+    "options": [
+      "The model learns from a set of pre-defined rules or relationships between input features and output labels",
+      "The algorithm is provided with unlabelled data and no target variable",
+      "The goal is to minimize an error function to find the best parameters",
+      "Supervised learning requires only unlabelled data"
+    ],
+    "correct_answer": "The model learns from a set of pre-defined rules or relationships between input features and output labels",
+    "explanation": "See lesson material.",
+    "marks": 2,
+    "difficulty": "hard"
+  },
+  {
+    "question_id": "q10",
+    "question": "What is the role of optimization in supervised learning?",
+    "type": "short_answer",
+    "options": [],
+    "correct_answer": "Refer to lesson material for the model answer.",
+    "explanation": "See lesson material.",
+    "marks": 5,
+    "difficulty": "medium"
+  }
+]

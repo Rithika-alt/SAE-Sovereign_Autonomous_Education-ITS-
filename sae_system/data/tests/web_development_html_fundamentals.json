@@ -1,0 +1,141 @@
+[
+  {
+    "question_id": "q1",
+    "question": "What does supervised learning require?",
+    "type": "mcq",
+    "options": [
+      "Labelled training data with input-output pairs",
+      "Only unlabelled data with no target variable",
+      "A reward signal from the environment",
+      "No data at all \u2014 it learns from rules"
+    ],
+    "correct_answer": "Labelled training data with input-output pairs",
+    "explanation": "Supervised learning trains on labelled examples where the correct output is known.",
+    "marks": 2,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q2",
+    "question": "What do angle brackets represent in HTML?",
+    "type": "mcq",
+    "options": [
+      "The starting and ending of an element",
+      "A specific type of tag",
+      "A required attribute for all tags",
+      "A reserved keyword for HTML"
+    ],
+    "correct_answer": "The starting and ending of an element",
+    "explanation": "Angle brackets are used to define the start and end of an HTML element.",
+    "marks": 2,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q3",
+    "question": "What is the primary principle of tags in web development?",
+    "type": "mcq",
+    "options": [
+      "Uniqueness, relevance, and consistency are not important",
+      "Uniqueness ensures that each tag is distinct and not duplicated",
+      "Relevance links the tag to its corresponding content",
+      "Consistency in tagging practices helps maintain a cohesive user experience"
+    ],
+    "correct_answer": "Uniqueness, relevance, and consistency are not important",
+    "explanation": "The primary principles of tags include uniqueness, relevance, and consistency.",
+    "marks": 2,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q4",
+    "question": "What is the purpose of using descriptive tags in web development?",
+    "type": "mcq",
+    "options": [
+      "To improve website speed and performance",
+      "To enhance the overall user experience and make it more accessible",
+      "To reduce the amount of data required for websites",
+      "To increase the complexity of website structure"
+    ],
+    "correct_answer": "To enhance the overall user experience and make it more accessible",
+    "explanation": "Descriptive tags help improve search engine optimization (SEO) and accessibility.",
+    "marks": 2,
+    "difficulty": "easy"
+  },
+  {
+    "question_id": "q5",
+    "question": "True or False: Tags are used to define the content of an HTML element.",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True",
+    "explanation": "Tags describe the structure and content of an HTML element.",
+    "marks": 1,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q6",
+    "question": "What is the purpose of the 'TF-IDF' algorithm in web development?",
+    "type": "mcq",
+    "options": [
+      "To calculate the importance of each tag based on its frequency and rarity",
+      "To determine the relevance of tags to their corresponding content",
+      "To improve website speed and performance",
+      "To reduce the amount of data required for websites"
+    ],
+    "correct_answer": "To calculate the importance of each tag based on its frequency and rarity",
+    "explanation": "The TF-IDF algorithm calculates the importance of each tag.",
+    "marks": 2,
+    "difficulty": "hard"
+  },
+  {
+    "question_id": "q7",
+    "question": "True or False: Consistency in tagging practices is not important for web development.",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "False",
+    "explanation": "Consistency in tagging practices helps maintain a cohesive user experience.",
+    "marks": 1,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q8",
+    "question": "What is the main advantage of using descriptive tags in web development?",
+    "type": "short_answer",
+    "options": [],
+    "correct_answer": "Refer to lesson material for the model answer.",
+    "explanation": "See lesson material.",
+    "marks": 5,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q9",
+    "question": "True or False: Tags are used to define the structure of an HTML element.",
+    "type": "true_false",
+    "options": [
+      "True",
+      "False"
+    ],
+    "correct_answer": "True",
+    "explanation": "Tags describe both the content and structure of an HTML element.",
+    "marks": 1,
+    "difficulty": "medium"
+  },
+  {
+    "question_id": "q10",
+    "question": "What is the primary benefit of using unique tags in web development?",
+    "type": "mcq",
+    "options": [
+      "To reduce the amount of data required for websites",
+      "To improve website speed and performance",
+      "To ensure that each tag is distinct and not duplicated",
+      "To increase the complexity of website structure"
+    ],
+    "correct_answer": "To ensure that each tag is distinct and not duplicated",
+    "explanation": "Uniqueness ensures that each tag is distinct and not duplicated.",
+    "marks": 2,
+    "difficulty": "medium"
+  }
+]

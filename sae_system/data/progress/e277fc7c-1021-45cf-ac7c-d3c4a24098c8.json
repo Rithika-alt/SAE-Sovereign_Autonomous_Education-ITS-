@@ -1,0 +1,19 @@
+{
+  "student_id": "e277fc7c-1021-45cf-ac7c-d3c4a24098c8",
+  "last_domain": "Web Development",
+  "domains": {
+    "Web Development": {
+      "modules_passed": [
+        "html_fundamentals"
+      ],
+      "modules_unlocked": [
+        "css_layouts",
+        "html_fundamentals"
+      ],
+      "module_progress": {
+        "tags": 50.0,
+        "html_fundamentals": 100.0
+      }
+    }
+  }
+}
