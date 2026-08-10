@@ -159,18 +159,18 @@ streamlit run app.py
 
 | Login & Onboarding | Roadmap Generation |
 |---|---|
-| ![Login](assets/login.png) | ![Roadmap](assets/roadmap.png) |
+| ![Login](assets/login_page.png) | ![Roadmap](assets/ROADMAP_AGENT.png) |
 
 | Lesson Content | Knowledge Graph |
 |---|---|
-| ![Lesson](assets/lesson.png) | ![Graph](assets/knowledge_graph.png) |
+| ![Lesson](assets/LESSON_CONTENT.png) | ![Graph](assets/knowledge_graph.jpeg) |
 
-| Semantic Grading (PASS) | Mastery Certificate |
+ | Mastery Certificate |
 |---|---|
-| ![Grading](assets/grading.png) | ![Certificate](assets/certificate.png) |
+ | ![Certificate](assets/Certificate.pdf) |
 
 > **Dashboard at Week 10/10 — Advanced Neural Networks pathway (98% mastery, Socratic audit confirmed)**
-> ![Full Dashboard](assets/dashboard.png)
+> ![Full Dashboard](assets/LESSON_GENERATION.png)
 
 ---
 
