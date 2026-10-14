@@ -12,9 +12,17 @@ warnings.filterwarnings(
     category=UserWarning,
 )
 
+import time as _time
+
 import numpy as np
-from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
+
+# perf_trace is lightweight; import it first so the heavy import below can be timed.
+from evaluation import perf_trace as _perf
+
+_t_import = _time.perf_counter()
+from sentence_transformers import SentenceTransformer  # noqa: E402 — pulls in torch: seconds on first import
+_perf.record("import.sentence_transformers", (_time.perf_counter() - _t_import) * 1000)
 
 load_dotenv()
 
@@ -26,7 +34,8 @@ def _get_encoder() -> SentenceTransformer:
     """Return (or lazily initialise) the shared sentence encoder."""
     global _encoder
     if _encoder is None:
-        _encoder = SentenceTransformer(_MODEL_NAME)
+        with _perf.span("model.load", model=_MODEL_NAME):
+            _encoder = SentenceTransformer(_MODEL_NAME)
     return _encoder
 
 
@@ -43,9 +52,10 @@ def grade_response(student_response: str, reference_answer: str) -> float:
         Cosine similarity score in [0.0, 1.0].
     """
     encoder = _get_encoder()
-    embeddings = encoder.encode(
-        [student_response, reference_answer], normalize_embeddings=True
-    )
+    with _perf.span("grader.embed"):
+        embeddings = encoder.encode(
+            [student_response, reference_answer], normalize_embeddings=True
+        )
     score = float(np.dot(embeddings[0], embeddings[1]))
     return max(0.0, min(1.0, score))
 

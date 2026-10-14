@@ -9,6 +9,8 @@ import logging
 import os
 from typing import Dict, Optional
 
+from evaluation import perf_trace as _perf
+
 logger = logging.getLogger(__name__)
 
 _SESSION_TTL = 86_400      # 24 hours — session token lifetime
@@ -21,7 +23,18 @@ _mem_profiles: Dict[str, Dict] = {}
 
 
 def _get_redis():
-    """Return a redis.Redis client or None if not configured / unreachable."""
+    """Return a redis.Redis client or None if not configured / unreachable.
+
+    Timed as ``redis.connect_ping``: a new client is built and pinged on every
+    call, so this cost is paid once per Redis operation.
+    """
+    with _perf.span("redis.connect_ping") as sp:
+        client = _connect_redis()
+        sp["available"] = client is not None
+        return client
+
+
+def _connect_redis():
     url = os.getenv("REDIS_URL")
     if not url:
         return None
@@ -44,6 +57,7 @@ def _get_redis():
 # Session  (token → student dict)
 # ---------------------------------------------------------------------------
 
+@_perf.timed("redis.set_session")
 def set_session(token: str, student: Dict) -> None:
     """Store session in Redis; fall back to in-memory dict when Redis is down."""
     _mem_sessions[token] = student          # always write memory fallback
@@ -57,6 +71,7 @@ def set_session(token: str, student: Dict) -> None:
         logger.warning("Redis set_session failed: %s", exc)
 
 
+@_perf.timed("redis.get_session")
 def get_session(token: str) -> Optional[Dict]:
     """Return student dict for a live session token, or None."""
     if not token:
@@ -74,6 +89,7 @@ def get_session(token: str) -> Optional[Dict]:
     return _mem_sessions.get(token)
 
 
+@_perf.timed("redis.delete_session")
 def delete_session(token: str) -> None:
     """Remove a session (logout)."""
     _mem_sessions.pop(token, None)

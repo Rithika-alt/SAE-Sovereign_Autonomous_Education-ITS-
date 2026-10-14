@@ -7,6 +7,8 @@ from typing import Callable, Dict, Optional, Tuple
 
 from langchain_ollama import ChatOllama
 
+from evaluation import perf_trace as _perf
+
 
 class SovereigntyError(Exception):
     pass
@@ -148,19 +150,23 @@ class TutorAgent:
         if cache_key in self._cache:
             cached = self._cache[cache_key]
             if self._is_valid(cached):
+                _perf.cache_event("lesson", "memory", concept=concept)
                 return cached
 
         cache_file = self._cache_file(concept, domain)
         if cache_file.exists():
             try:
-                with cache_file.open() as f:
-                    cached = json.load(f)
+                with _perf.span("cache.lesson", tier="disk", concept=concept):
+                    with cache_file.open() as f:
+                        cached = json.load(f)
                 if self._is_valid(cached):
                     self._cache[cache_key] = cached
                     return cached
             except Exception:
                 pass
 
+        _perf.cache_event("lesson", "miss", concept=concept)
+        _t_generate = time.perf_counter()
         lesson: Dict = {"concept_id": concept, "domain": domain}
 
         def _worker(key: str) -> Tuple[str, str]:
@@ -168,7 +174,8 @@ class TutorAgent:
             prompt = self.SECTION_PROMPTS[key].format(concept=concept, domain=domain)
             for _ in range(3):
                 try:
-                    response = llm.invoke(prompt)
+                    with _perf.label("lesson.section", section=key, concept=concept):
+                        response = llm.invoke(prompt)
                     text = response.content.strip()
                     if text and len(text) > 30:
                         return key, text
@@ -191,6 +198,7 @@ class TutorAgent:
                     except Exception:
                         pass
 
+        _perf.record("lesson.generate", (time.perf_counter() - _t_generate) * 1000, concept=concept)
         self._cache[cache_key] = lesson
         try:
             with cache_file.open("w") as f:
@@ -204,7 +212,8 @@ class TutorAgent:
         """Call Ollama with retry. Never returns empty string."""
         for _ in range(3):
             try:
-                response = self.llm.invoke(prompt)
+                with _perf.label("lesson.section_seq", section=section_key, concept=concept):
+                    response = self.llm.invoke(prompt)
                 text = response.content.strip()
                 if text and len(text) > 30:
                     return text

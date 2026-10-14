@@ -13,6 +13,7 @@ from json_repair import repair_json
 from langchain_ollama import ChatOllama
 
 from agents.tutor_agent import SovereigntyError
+from evaluation import perf_trace as _perf
 
 logger = logging.getLogger(__name__)
 
@@ -69,23 +70,37 @@ class RoadmapAgent:
         Returns:
             Roadmap dict with 'domain', 'total_weeks', 'modules' (week-sorted).
         """
+        from evaluation.event_log import log_event, EVT_AGENT_EXECUTION
+
+        t_agent_start = time.time()
         safe = domain.lower().replace(" ", "_")
         cache_file = self.cache_dir / f"{safe}.json"
         if cache_file.exists():
-            with cache_file.open() as f:
-                roadmap = json.load(f)
-            self._populate_graph(roadmap, student_id)
+            with _perf.span("cache.roadmap", tier="disk", domain=domain):
+                with cache_file.open() as f:
+                    roadmap = json.load(f)
+            with _perf.span("roadmap.populate_graph", domain=domain):
+                self._populate_graph(roadmap, student_id)
+            log_event(
+                EVT_AGENT_EXECUTION, student_id=student_id, agent="roadmap_agent",
+                domain=domain, success=True, cache_hit=True,
+                latency_s=round(time.time() - t_agent_start, 3),
+            )
             return roadmap
 
+        _perf.cache_event("roadmap", "miss", domain=domain)
+
         # Phase 1 — one fast call for all 10 titles
-        titles = self._get_titles(domain)
+        with _perf.span("roadmap.titles", domain=domain):
+            titles = self._get_titles(domain)
 
         # Phase 2 — pre-compute every module's static inputs before any thread starts
         module_inputs = self._precompute_module_inputs(domain, titles)
 
         # Phase 3 — parallel module generation (≤ _BATCH_SIZE concurrent Ollama calls)
         t_start = time.time()
-        modules = self._generate_modules_parallel(module_inputs, progress_callback)
+        with _perf.span("roadmap.modules", domain=domain):
+            modules = self._generate_modules_parallel(module_inputs, progress_callback)
         elapsed = time.time() - t_start
 
         logger.info(
@@ -98,7 +113,8 @@ class RoadmapAgent:
         )
 
         # Phase 4 — parallel Wikipedia resource enrichment (up to _WIKI_WORKERS at once)
-        modules = self._enrich_resources_parallel(modules)
+        with _perf.span("roadmap.enrich_wikipedia", domain=domain):
+            modules = self._enrich_resources_parallel(modules)
 
         # Always return modules in week order regardless of completion order
         modules.sort(key=lambda m: m["week"])
@@ -106,7 +122,13 @@ class RoadmapAgent:
         roadmap = {"domain": domain, "total_weeks": 10, "modules": modules}
         with cache_file.open("w") as f:
             json.dump(roadmap, f, indent=2)
-        self._populate_graph(roadmap, student_id)
+        with _perf.span("roadmap.populate_graph", domain=domain):
+            self._populate_graph(roadmap, student_id)
+        log_event(
+            EVT_AGENT_EXECUTION, student_id=student_id, agent="roadmap_agent",
+            domain=domain, success=True, cache_hit=False,
+            latency_s=round(time.time() - t_agent_start, 3),
+        )
         return roadmap
 
     def _populate_graph(self, roadmap: Dict, student_id: str) -> None:
@@ -302,7 +324,8 @@ class RoadmapAgent:
                 logger.warning("Week %d timed out, using fallback.", week)
                 break
             try:
-                resp = llm.invoke(prompt)
+                with _perf.label("roadmap.module", week=week):
+                    resp = llm.invoke(prompt)
                 raw  = resp.content.strip().strip("```json").strip("```").strip()
                 data = json.loads(repair_json(raw))
                 data.setdefault("week",            week)
@@ -377,7 +400,8 @@ class RoadmapAgent:
         )
         for _ in range(3):
             try:
-                resp   = self.llm.invoke(prompt)
+                with _perf.label("roadmap.titles"):
+                    resp   = self.llm.invoke(prompt)
                 raw    = resp.content.strip().strip("```json").strip("```").strip()
                 titles = json.loads(repair_json(raw))
                 if isinstance(titles, list) and len(titles) >= 5:
@@ -406,7 +430,8 @@ class RoadmapAgent:
         url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{encoded}"
         logger.debug("Wikipedia fetch — concept=%r url=%s", concept, url)
         try:
-            r = requests.get(url, timeout=4, headers={"User-Agent": "SAESystem/1.0"})
+            with _perf.span("wikipedia.get", concept=concept):
+                r = requests.get(url, timeout=4, headers={"User-Agent": "SAESystem/1.0"})
             logger.debug(
                 "Wikipedia response — concept=%r status=%d content_length=%d",
                 concept, r.status_code, len(r.content),

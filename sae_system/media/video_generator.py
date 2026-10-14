@@ -9,6 +9,8 @@ from typing import Optional
 from json_repair import repair_json
 from langchain_ollama import ChatOllama
 
+from evaluation import perf_trace as _perf
+
 
 class AnimatedLessonGenerator:
     """Generates instant HTML5 animated lesson explainers — no subprocess, no LaTeX."""
@@ -99,7 +101,8 @@ class AnimatedLessonGenerator:
             '"fun_fact":"One surprising fact about this concept"}'
         )
         try:
-            resp = self.llm.invoke(prompt)
+            with _perf.label("animation.extract", concept=concept_id):
+                resp = self.llm.invoke(prompt)
             raw = resp.content.strip().strip("```json").strip("```").strip()
             data = json.loads(repair_json(raw))
             data.setdefault("title", concept_id)
