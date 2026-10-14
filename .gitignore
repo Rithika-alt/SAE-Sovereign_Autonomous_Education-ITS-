@@ -1,0 +1,24 @@
+# ---- Secrets and credentials ------------------------------------------------
+# The real environment file. The template, sae_system/.env.example, stays tracked.
+.env
+
+# ---- Runtime data: never belongs in version control --------------------------
+# student records and password hashes, progress, knowledge graphs, lessons, cached
+# tests, roadmaps, XP files, telemetry
+data/
+# vector store
+chroma_db/
+# generated student certificates (personal data)
+certificates/
+# generated lesson videos / render scratch files
+# (a pattern containing a slash is anchored to this file's folder, so '**/' is needed to match sae_system/media/videos/)
+**/media/videos/
+# event and audit logs (events.jsonl, mastery_log.jsonl, ...)
+*.jsonl
+
+# ---- Python bytecode ----------------------------------------------------------
+__pycache__/
+*.pyc
+
+# ---- Local tool settings ------------------------------------------------------
+.claude/settings.local.json
