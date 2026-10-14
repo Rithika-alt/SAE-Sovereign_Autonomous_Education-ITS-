@@ -9,6 +9,8 @@ import logging
 from pathlib import Path
 from typing import Dict, List, Set
 
+from evaluation import perf_trace as _perf
+
 logger = logging.getLogger(__name__)
 
 _DIR = Path(__file__).resolve().parent.parent / "data" / "progress"
@@ -29,6 +31,7 @@ def _load_raw(student_id: str) -> dict:
     return {"student_id": student_id, "last_domain": "", "domains": {}}
 
 
+@_perf.timed("progress.load")
 def load_progress(student_id: str, domain: str) -> Dict:
     """Return restored progress for one student + domain.
 
@@ -48,6 +51,7 @@ def load_progress(student_id: str, domain: str) -> Dict:
     }
 
 
+@_perf.timed("progress.save")
 def save_progress(
     student_id: str,
     domain: str,
@@ -72,6 +76,42 @@ def save_progress(
         logger.warning("save_progress failed for %s: %s", student_id, exc)
 
 
+def ensure_enrolled(
+    student_id: str,
+    domain: str,
+    modules_passed=(),
+    modules_unlocked=(),
+    module_progress=None,
+) -> bool:
+    """Create the saved record for (student, domain) if there isn't one yet.
+
+    Never overwrites existing progress. Returns True only if a record was created.
+    "Enrolled" (get_enrolled_domains) means "has a saved record", and a record used
+    to be written only on Log Out or after passing a test — so a student who had
+    chosen a domain and generated a roadmap but done neither looked "not started".
+    """
+    if not student_id or not domain:
+        return False
+    try:
+        if domain in _load_raw(student_id).get("domains", {}):
+            return False
+        save_progress(student_id, domain, set(modules_passed), set(modules_unlocked), dict(module_progress or {}))
+        return domain in _load_raw(student_id).get("domains", {})      # save_progress is silent on failure
+    except Exception as exc:
+        logger.warning("ensure_enrolled failed for %s: %s", student_id, exc)
+        return False
+
+
 def get_enrolled_domains(student_id: str) -> List[str]:
     """Return all domains the student has any saved progress in."""
     return list(_load_raw(student_id).get("domains", {}).keys())
+
+
+def get_last_domain(student_id: str) -> str:
+    """Return the most recently active domain for this student, or "" if none.
+
+    This is the actually-maintained source of "which domain was the student
+    last in" — unlike auth's students.domain column (auth/db.py::update_student_domain),
+    which has no caller anywhere in the app and is therefore always stale/empty.
+    """
+    return _load_raw(student_id).get("last_domain", "")
