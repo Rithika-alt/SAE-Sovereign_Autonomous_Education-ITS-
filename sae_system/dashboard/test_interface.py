@@ -95,7 +95,7 @@ def show_camera_setup(proctor: CameraProctor) -> bool:
           <div style='color:#93c5fd;font-size:1rem;font-weight:700;margin-bottom:4px;'>
             📌 Step 1 — Take your photo
           </div>
-          <div style='color:#dbeafe;font-size:0.9rem;'>
+          <div style='color:#7dd3fc;font-size:0.9rem;'>
             Look directly at the camera, then click the
             <strong style='color:#facc15;'>⬤ white circle button</strong>
             at the bottom-centre of the camera box below.
@@ -124,7 +124,7 @@ def show_camera_setup(proctor: CameraProctor) -> bool:
     if face_ok:
         st.markdown(
             """
-            <div style='background:#14532d;border:2px solid #22c55e;border-radius:10px;
+            <div style='background:#14532d;border:2px solid #4ade80;border-radius:10px;
                         padding:12px 18px;margin:10px 0;'>
               <div style='color:#86efac;font-size:0.95rem;font-weight:700;'>
                 ✅ Identity confirmed. You may now start the test.
@@ -151,7 +151,7 @@ def show_camera_setup(proctor: CameraProctor) -> bool:
 def _show_warning_banner(count: int) -> None:
     """Display a red warning banner and play an audio beep."""
     st.markdown(
-        f"<div style='background:#7f1d1d;border:2px solid #ef4444;border-radius:8px;"
+        f"<div style='background:#7f1d1d;border:2px solid #f87171;border-radius:8px;"
         f"padding:14px;text-align:center;font-size:1.1rem;font-weight:700;color:#fca5a5'>"
         f"⚠️ WARNING {count}/{_MAX_WARNINGS}: Face not detected! Please face the camera."
         f"</div>",
@@ -188,18 +188,18 @@ def _render_question(question: Dict, q_index: int, total: int) -> Optional[str]:
     st.caption(f"⏱ Time on this question: {elapsed}s")
 
     # Difficulty chip
-    diff_col = {"easy": "#22c55e", "medium": "#f59e0b", "hard": "#ef4444"}.get(
-        question.get("difficulty", "medium"), "#6b7280"
+    diff_col = {"easy": "#4ade80", "medium": "#fbbf24", "hard": "#f87171"}.get(
+        question.get("difficulty", "medium"), "#a3a3bd"
     )
     st.markdown(
         f"<span style='background:{diff_col}22;color:{diff_col};padding:2px 8px;"
         f"border-radius:6px;font-size:0.78rem'>{question.get('difficulty','medium').upper()}</span> "
-        f"<span style='color:#64748b;font-size:0.78rem'>·  {question.get('marks',2)} marks</span>",
+        f"<span style='color:#8888a3;font-size:0.78rem'>·  {question.get('marks',2)} marks</span>",
         unsafe_allow_html=True,
     )
 
     st.markdown(
-        f"<div style='font-size:1.1rem;font-weight:600;color:#e2e8f0;margin:10px 0'>"
+        f"<div style='font-size:1.1rem;font-weight:600;color:#f2f2f8;margin:10px 0'>"
         f"{question['question']}</div>",
         unsafe_allow_html=True,
     )
@@ -251,32 +251,32 @@ def show_results(
     passed = grade_result["passed"]
 
     # ── Gauge chart — light theme ────────────────────────────────────────
-    gauge_color = "#16a34a" if passed else "#dc2626"
+    gauge_color = "#4ade80" if passed else "#f87171"
     fig = go.Figure(go.Indicator(
         mode="gauge+number+delta",
         value=pct,
-        number={"suffix": "%", "font": {"size": 40, "color": "#111827"}},
-        title={"text": f"Grade: {grade}", "font": {"size": 22, "color": "#111827"}},
+        number={"suffix": "%", "font": {"size": 40, "color": "#f2f2f8"}},
+        title={"text": f"Grade: {grade}", "font": {"size": 22, "color": "#f2f2f8"}},
         gauge={
-            "axis": {"range": [0, 100], "tickcolor": "#6b7280"},
+            "axis": {"range": [0, 100], "tickcolor": "#a3a3bd"},
             "bar": {"color": gauge_color},
-            "bgcolor": "#f3f4f6",
-            "bordercolor": "#e5e7eb",
+            "bgcolor": "rgba(255,255,255,0.05)",
+            "bordercolor": "rgba(255,255,255,0.10)",
             "steps": [
-                {"range": [0,  60], "color": "#fee2e2"},
-                {"range": [60, 85], "color": "#fef9c3"},
-                {"range": [85, 100], "color": "#dcfce7"},
+                {"range": [0,  60], "color": "rgba(248,113,113,0.12)"},
+                {"range": [60, 85], "color": "rgba(251,191,36,0.12)"},
+                {"range": [85, 100], "color": "rgba(34,197,94,0.14)"},
             ],
             "threshold": {
-                "line": {"color": "#7c3aed", "width": 3},
+                "line": {"color": "#7c6ef5", "width": 3},
                 "thickness": 0.8,
                 "value": 60,
             },
         },
     ))
     fig.update_layout(
-        paper_bgcolor="#ffffff",
-        font={"color": "#111827"},
+        paper_bgcolor="#0a0a0f",
+        font={"color": "#f2f2f8"},
         height=280,
         margin=dict(l=30, r=30, t=40, b=10),
     )
@@ -302,10 +302,10 @@ def show_results(
     for r in grade_result.get("results", []):
         is_correct   = r["is_correct"]
         icon         = "✅" if is_correct else "❌"
-        border_color = "#16a34a" if is_correct else "#dc2626"
-        bg_color     = "#f0fdf4" if is_correct else "#fff1f2"
-        label_color  = "#15803d" if is_correct else "#b91c1c"
-        marks_color  = "#7c3aed"
+        border_color = "#4ade80" if is_correct else "#f87171"
+        bg_color     = "rgba(34,197,94,0.12)" if is_correct else "rgba(248,113,113,0.12)"
+        label_color  = "#4ade80" if is_correct else "#f87171"
+        marks_color  = "#7c6ef5"
 
         similarity_text = (
             f" &nbsp;·&nbsp; Similarity: {r['similarity_score']:.0%}"
@@ -321,24 +321,24 @@ def show_results(
                 padding: 14px 18px;
                 margin-bottom: 10px;
             ">
-              <div style="font-weight:700;font-size:0.97rem;color:#111827;margin-bottom:8px;">
+              <div style="font-weight:700;font-size:0.97rem;color:#f2f2f8;margin-bottom:8px;">
                 {icon} {r['question']}
               </div>
               <div style="font-size:0.88rem;margin-bottom:4px;">
-                <span style="color:#374151;font-weight:600;">Your answer:&nbsp;</span>
-                <span style="color:#111827;font-weight:600;background:#e5e7eb;
+                <span style="color:#c7c7de;font-weight:600;">Your answer:&nbsp;</span>
+                <span style="color:#f2f2f8;font-weight:600;background:rgba(255,255,255,0.10);
                              padding:2px 8px;border-radius:5px;">
                   {r['student_answer'] or '(no answer)'}
                 </span>
               </div>
               <div style="font-size:0.88rem;margin-bottom:6px;">
                 <span style="color:{label_color};font-weight:600;">Correct answer:&nbsp;</span>
-                <span style="color:#111827;font-weight:600;background:#e5e7eb;
+                <span style="color:#f2f2f8;font-weight:600;background:rgba(255,255,255,0.10);
                              padding:2px 8px;border-radius:5px;">
                   {r['correct_answer']}
                 </span>
               </div>
-              <div style="font-size:0.83rem;color:#374151;font-weight:500;
+              <div style="font-size:0.83rem;color:#c7c7de;font-weight:500;
                           margin-bottom:6px;font-style:italic;">
                 {r['explanation']}
               </div>
