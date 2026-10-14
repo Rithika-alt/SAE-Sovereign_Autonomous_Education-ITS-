@@ -5,7 +5,11 @@
 # ---- Runtime data: never belongs in version control --------------------------
 # student records and password hashes, progress, knowledge graphs, lessons, cached
 # tests, roadmaps, XP files, telemetry
-data/
+**/data/*
+# EXCEPTION: data/eval/ holds grading_gold_set.json — the hand-labelled evaluation set behind the grading
+# threshold and the System Evaluation page, and read by tests. It is a project asset (versioned, reviewed,
+# contains no student data), unlike everything else in data/, which is generated at runtime.
+!**/data/eval/
 # vector store
 chroma_db/
 # generated student certificates (personal data)
