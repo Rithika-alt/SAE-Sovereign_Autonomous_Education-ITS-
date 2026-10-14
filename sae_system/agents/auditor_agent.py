@@ -1,13 +1,10 @@
 """Auditor agent: scores student responses and decides phase transitions."""
 
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-SEMANTIC_PASS_THRESHOLD = float(os.getenv("SEMANTIC_PASS_THRESHOLD", "0.85"))
-SEMANTIC_DIALOGUE_THRESHOLD = float(os.getenv("SEMANTIC_DIALOGUE_THRESHOLD", "0.60"))
-LOGIC_GATE_THRESHOLD = float(os.getenv("LOGIC_GATE_THRESHOLD", "0.65"))
+from config import (
+    SEMANTIC_PASS_THRESHOLD,
+    SEMANTIC_DIALOGUE_THRESHOLD,
+    LOGIC_GATE_THRESHOLD,
+)
 
 
 class AuditorAgent:
@@ -27,6 +24,7 @@ class AuditorAgent:
         from integrity.anti_malpractice import verify_reasoning
         from integrity.proof_of_learning import generate_hash, append_to_log
         from memory.graph_engine import KnowledgeGraph
+        from evaluation.event_log import log_event, EVT_DIALOGUE_ATTEMPT
 
         student_response: str = state.get("student_response", "")
         reference_answer: str = state.get("reference_answer", "")
@@ -73,5 +71,16 @@ class AuditorAgent:
             state["current_phase"] = "clarification"
         else:
             state["current_phase"] = "retry"
+
+        log_event(
+            EVT_DIALOGUE_ATTEMPT,
+            student_id=state.get("student_id", "unknown"),
+            concept_id=state.get("concept_id", "unknown"),
+            semantic_score=s_semantic,
+            logic_score=s_logic,
+            composite_score=composite,
+            threshold_used=SEMANTIC_PASS_THRESHOLD,
+            phase=state["current_phase"],
+        )
 
         return state

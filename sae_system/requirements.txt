@@ -1,21 +1,25 @@
-langchain
 langgraph
-langchain-community
 langchain-ollama
 chromadb
 networkx
 sentence-transformers
 streamlit
 plotly
+pandas
 pytest
 python-dotenv
 neo4j
 opencv-python
 reportlab
-Pillow
 requests
 json_repair
 psycopg2-binary
 redis
 numpy
 streamlit-autorefresh
+# pdf2image is optional — only used for the certificate PDF preview in
+# page_certificate() (already wrapped in try/except with a graceful
+# fallback message if missing). Requires the separate system package
+# "poppler" (not installable via pip) to actually render previews; without
+# poppler, certificate generation/download still works, just no preview.
+pdf2image

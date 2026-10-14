@@ -24,7 +24,7 @@ _POMODORO_LONG  = 15 * 60
 def _read_html(path: Path) -> str:
     if path.exists():
         return path.read_text(encoding="utf-8")
-    return "<p style='color:#ef4444'>Scene file not found.</p>"
+    return "<p style='color:#f87171'>Scene file not found.</p>"
 
 
 def _fmt_seconds(s: int) -> str:
@@ -34,12 +34,12 @@ def _fmt_seconds(s: int) -> str:
 
 def _session_gauge(elapsed_min: float, work_min: int = 25) -> go.Figure:
     pct = min(100.0, elapsed_min / work_min * 100)
-    color = "#22c55e" if pct < 60 else ("#f59e0b" if pct < 90 else "#ef4444")
+    color = "#4ade80" if pct < 60 else ("#fbbf24" if pct < 90 else "#f87171")
     fig = go.Figure(go.Indicator(
         mode="gauge+number",
         value=round(pct, 1),
-        number={"suffix": "%", "font": {"size": 28, "color": "#e2e8f0"}},
-        title={"text": "Focus Session Used", "font": {"size": 13, "color": "#94a3b8"}},
+        number={"suffix": "%", "font": {"size": 28, "color": "rgba(255,255,255,0.10)"}},
+        title={"text": "Focus Session Used", "font": {"size": 13, "color": "#8888a3"}},
         gauge={
             "axis": {"range": [0, 100], "tickcolor": "#334155"},
             "bar": {"color": color},
@@ -93,12 +93,12 @@ def _render_curiosity_card(domain: str, concept: str) -> None:
             f"""
             <div style='
                 background: linear-gradient(135deg,#1e293b,#0f172a);
-                border: 1.5px solid #7c3aed;
+                border: 1.5px solid #7c6ef5;
                 border-radius: 14px;
                 padding: 20px 22px;
                 margin-top: 10px;
                 font-size: 0.97rem;
-                color: #e2e8f0;
+                color: rgba(255,255,255,0.10);
                 line-height: 1.6;
                 box-shadow: 0 4px 24px rgba(124,58,237,0.18);
             '>
@@ -172,7 +172,7 @@ def _render_pomodoro() -> None:
 
     # Big timer display
     pct = (1 - remaining / duration) * 100 if duration > 0 else 0
-    timer_color = "#22c55e" if ss["pomo_mode"] == "work" else "#f59e0b"
+    timer_color = "#4ade80" if ss["pomo_mode"] == "work" else "#fbbf24"
     st.markdown(
         f"""
         <div style='text-align:center;padding:24px 0'>
@@ -221,7 +221,7 @@ def render_stress_relief_page(domain: str = "Learning", concept: str = "the curr
         concept: Current concept being studied.
     """
     st.markdown(
-        "<h2 style='color:#7c3aed'>🧘 Recharge Station</h2>",
+        "<h2 style='color:#7c6ef5'>🧘 Recharge Station</h2>",
         unsafe_allow_html=True,
     )
     st.caption("Take a mindful break. Your brain will thank you.")

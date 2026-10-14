@@ -11,24 +11,24 @@ def page_login() -> None:
     /* ── Force dark visible labels on every input on this page ── */
     .stTextInput label p,
     .stTextInput label {
-        color: #1a1a2e !important;
+        color: #f2f2f8 !important;
         font-weight: 600 !important;
         font-size: 0.88rem !important;
     }
 
     /* ── Input box border styling ── */
     .stTextInput input {
-        border: 1.5px solid #d1d5db !important;
+        border: 1.5px solid rgba(255,255,255,0.10) !important;
         border-radius: 10px !important;
         padding: 0.55rem 0.75rem !important;
         font-size: 0.95rem !important;
-        color: #1a1a2e !important;
-        background: #fafafa !important;
+        color: #f2f2f8 !important;
+        background: rgba(255,255,255,0.04) !important;
     }
     .stTextInput input:focus {
-        border-color: #667eea !important;
+        border-color: #7c6ef5 !important;
         box-shadow: 0 0 0 3px rgba(102,126,234,0.15) !important;
-        background: #ffffff !important;
+        background: rgba(255,255,255,0.045) !important;
     }
 
     /* ── Tab styling ── */
@@ -39,7 +39,7 @@ def page_login() -> None:
 
     /* ── Button ── */
     .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #667eea, #764ba2) !important;
+        background: linear-gradient(135deg, #7c6ef5, #38bdf8) !important;
         border: none !important;
         border-radius: 10px !important;
         font-weight: 700 !important;
@@ -55,11 +55,11 @@ def page_login() -> None:
     <div style="text-align:center;padding:2.5rem 0 1.5rem;">
       <div style="font-size:3rem;margin-bottom:0.5rem;">🎓</div>
       <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:2rem;font-weight:800;
-                  background:linear-gradient(135deg,#667eea,#764ba2);
+                  background:linear-gradient(135deg,#7c6ef5,#38bdf8);
                   -webkit-background-clip:text;-webkit-text-fill-color:transparent;">
         SAE System
       </div>
-      <div style="font-size:0.75rem;color:#9ca3af;letter-spacing:2px;margin-top:4px;">
+      <div style="font-size:0.75rem;color:#8888a3;letter-spacing:2px;margin-top:4px;">
         SOVEREIGN LEARNING
       </div>
     </div>
@@ -108,7 +108,7 @@ def page_login() -> None:
                         st.error(msg)
 
             st.markdown("""
-            <div style="text-align:center;margin-top:1rem;font-size:0.8rem;color:#9ca3af;">
+            <div style="text-align:center;margin-top:1rem;font-size:0.8rem;color:#8888a3;">
               Don't have an account? Switch to the <strong>Create Account</strong> tab above.
             </div>
             """, unsafe_allow_html=True)
@@ -171,7 +171,7 @@ def page_login() -> None:
                     st.error(msg)
 
             st.markdown("""
-            <div style="text-align:center;margin-top:1rem;font-size:0.8rem;color:#9ca3af;">
+            <div style="text-align:center;margin-top:1rem;font-size:0.8rem;color:#8888a3;">
               Already have an account? Switch to the <strong>Log In</strong> tab above.
             </div>
             """, unsafe_allow_html=True)
@@ -187,11 +187,15 @@ def _apply_session(ss, student: dict) -> None:
     ss["student_name"]     = student["name"]
     ss["student_email"]    = student["email"]
     ss["student_username"] = student["username"]
-    # Restore last saved domain + progress so the student continues where they left off
+    # Restore last saved domain + progress so the student continues where they left off.
+    # Uses persistence.progress_store's last_domain, not student["domain"] — the latter
+    # comes from auth/db.py::update_student_domain, which has no caller anywhere in the
+    # app and is therefore always empty; progress_store is the actually-maintained source.
     try:
-        from persistence.progress_store import load_progress
-        sid    = student["student_id"]
-        domain = student.get("domain", "")
+        from persistence.progress_store import load_progress, get_enrolled_domains, get_last_domain
+        sid = student["student_id"]
+        enrolled = get_enrolled_domains(sid)
+        domain = get_last_domain(sid)
         if domain:
             saved = load_progress(sid, domain)
             ss["domain"]           = domain
@@ -200,6 +204,10 @@ def _apply_session(ss, student: dict) -> None:
             ss["module_progress"]  = saved["module_progress"]
         elif not ss.get("domain"):
             ss["domain"] = ""
+        # Returning student with existing progress → land on the Home command
+        # center instead of the domain-picker grid. A brand-new student (no
+        # enrolled domains yet) still gets the domain-picker, since Home has
+        # nothing meaningful to show them.
+        ss["page"] = "home" if enrolled else "domain_select"
     except Exception:
-        if student.get("domain") and not ss.get("domain"):
-            ss["domain"] = student["domain"]
+        ss["page"] = "domain_select"

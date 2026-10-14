@@ -1,6 +1,7 @@
 """Searcher agent: enriches lesson content via ChromaDB retrieval and Ollama synthesis."""
 
 import os
+import time
 from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage
@@ -55,6 +56,9 @@ class SearcherAgent:
         Returns:
             Updated state with relevant chunks appended to lesson_content.
         """
+        from evaluation.event_log import log_event, EVT_SEARCH_EXECUTION
+
+        t_start = time.time()
         concept_id: str = state.get("concept_id", "unknown")
         domain: str = state.get("domain", "general")
 
@@ -69,4 +73,10 @@ class SearcherAgent:
             supplement = "\n\n--- Additional Context ---\n" + "\n\n".join(top_chunks)
             state["lesson_content"] = state.get("lesson_content", "") + supplement
 
+        log_event(
+            EVT_SEARCH_EXECUTION,
+            student_id=state.get("student_id", "unknown"),
+            concept_id=concept_id, domain=domain,
+            chunks_found=len(top_chunks), latency_s=round(time.time() - t_start, 3),
+        )
         return state

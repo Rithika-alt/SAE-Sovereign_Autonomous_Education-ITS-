@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import chromadb
 from chromadb.utils import embedding_functions
 

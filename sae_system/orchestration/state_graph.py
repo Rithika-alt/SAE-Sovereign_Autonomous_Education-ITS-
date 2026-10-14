@@ -1,7 +1,5 @@
 """LangGraph StateGraph wiring all SAE nodes and conditional edges."""
 
-import os
-from dotenv import load_dotenv
 from langgraph.graph import StateGraph, END
 
 from orchestration.state_schema import GraphState
@@ -9,11 +7,7 @@ from agents.tutor_agent import TutorAgent
 from agents.auditor_agent import AuditorAgent
 from agents.searcher_agent import SearcherAgent
 from memory.graph_engine import KnowledgeGraph
-
-load_dotenv()
-
-SEMANTIC_PASS_THRESHOLD = float(os.getenv("SEMANTIC_PASS_THRESHOLD", "0.85"))
-SEMANTIC_DIALOGUE_THRESHOLD = float(os.getenv("SEMANTIC_DIALOGUE_THRESHOLD", "0.60"))
+from config import SEMANTIC_PASS_THRESHOLD, SEMANTIC_DIALOGUE_THRESHOLD
 
 _tutor = TutorAgent()
 _auditor = AuditorAgent()

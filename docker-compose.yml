@@ -87,24 +87,42 @@ services:
       OLLAMA_MODEL:           llama3.2
       DATABASE_URL:           postgresql://sae_user:sae_password@postgres:5432/sae_db
       REDIS_URL:              redis://redis:6379/0
+      # Evidence-based default established in sae_system/config.py (Phase 2,
+      # re-validated Phase 9's grading benchmark) — must match config.py's
+      # SEMANTIC_THRESHOLD_DEFAULT or a Docker deployment silently grades
+      # worse than the validated native path. Previously hardcoded to the
+      # old pre-Phase-2 value (0.45) here — config-drift bug, fixed.
       SEMANTIC_PASS_THRESHOLD: "0.60"
+      SEMANTIC_DIALOGUE_THRESHOLD: "0.45"
       # Neo4j — containers talk by service name, not localhost
       USE_NEO4J:              "true"
       NEO4J_URI:              bolt://neo4j:7687
       NEO4J_USER:             neo4j
       NEO4J_PASSWORD:         saesystem
+      # Friends/chat only — points at wherever you deployed social_server/
+      # (see social_server/README.md). Defaults to a copy running on this
+      # same host via host.docker.internal for local dev/testing; override
+      # to your real deployed URL in production.
+      SOCIAL_SERVER_URL:      ${SOCIAL_SERVER_URL:-http://host.docker.internal:8000}
     extra_hosts:
       - "host.docker.internal:host-gateway"   # lets the container reach host Ollama
     ports:
       - "8501:8501"
     volumes:
-      - ./sae_system:/app                     # live-reload during development
+      # ./sae_system:/app already bind-mounts the whole app, including data/ —
+      # every student's progress, knowledge graphs, roadmaps, lessons, and
+      # tests, all in one place. That single line is the entire portability
+      # story: to move a student to another machine, copy sae_system/data/.
+      # (Previously two more-specific mounts below shadowed this for
+      # roadmaps and knowledge_graphs — one trapped roadmap data inside a
+      # Docker-internal volume, the other pointed at a nonexistent
+      # <repo_root>/data/knowledge_graphs instead of the real
+      # sae_system/data/knowledge_graphs — so neither actually persisted to
+      # the same place the no-Docker dev path uses. Removed.)
+      - ./sae_system:/app
       - chroma_data:/app/chroma_db
-      - roadmap_cache:/app/data/roadmaps
-      - ./data/knowledge_graphs:/app/data/knowledge_graphs
 
 volumes:
   postgres_data:
   redis_data:
   chroma_data:
-  roadmap_cache:
