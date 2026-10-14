@@ -544,6 +544,28 @@ def _repair_mcq(q: Dict) -> Dict:
 _ROADMAP_DIR = Path(__file__).resolve().parent.parent / "data" / "roadmaps"
 
 
+_PLACEHOLDER_CONCEPT_RE = re.compile(r"^(concept|topic|item|module|section|lesson)[\s_-]*\d+$", re.I)
+
+
+def _clean_concept(c: Any, domain_names: set) -> Optional[str]:
+    """A readable concept name, or None if it is not a real concept.
+
+    Rejects placeholders left by failed roadmap generation ('concept4') and bare domain names
+    ('blockchain'); turns identifier-style names ('ad_budgeting') into readable text. Short genuine
+    names ('Git', 'SVN', 'EVM') are kept, so there is deliberately no minimum-length rule.
+    """
+    if not isinstance(c, str):
+        return None
+    c = c.strip()
+    if not c or _PLACEHOLDER_CONCEPT_RE.match(c):
+        return None
+    if re.fullmatch(r"[A-Za-z0-9]+(?:_[A-Za-z0-9]+)+", c):
+        c = c.replace("_", " ")
+        if c == c.lower():
+            c = c[0].upper() + c[1:]
+    return None if c.lower() in domain_names else c
+
+
 def _syllabus_for(concept_id: str, domain: str):
     """(module title, this module's concepts, concepts from OTHER domains) from the roadmap files.
 
@@ -552,12 +574,16 @@ def _syllabus_for(concept_id: str, domain: str):
     """
     own_file = _ROADMAP_DIR / f"{domain.lower().replace(' ', '_')}.json"
     title, concepts = concept_id.replace("_", " ").title(), []
+    domain_names = {domain.strip().lower()} | (
+        {f.stem.replace("_", " ").lower() for f in _ROADMAP_DIR.glob("*.json")} if _ROADMAP_DIR.exists() else set()
+    )
     try:
         for m in json.loads(own_file.read_text(encoding="utf-8")).get("modules", []):
             mid = str(m.get("module_id", ""))
             if mid == concept_id or mid[:30] == concept_id[:30]:
                 title = str(m.get("title") or title)
-                concepts = [str(c) for c in m.get("concepts", []) if isinstance(c, (str, int))]
+                cleaned = (_clean_concept(c, domain_names) for c in m.get("concepts", []))
+                concepts = list(dict.fromkeys(c for c in cleaned if c))
                 break
     except Exception:
         pass
@@ -568,8 +594,9 @@ def _syllabus_for(concept_id: str, domain: str):
             continue
         try:
             for m in json.loads(f.read_text(encoding="utf-8")).get("modules", []):
-                for c in m.get("concepts", []):
-                    if isinstance(c, str) and not (_stems(c) & own_terms) and c not in others:
+                for raw_c in m.get("concepts", []):
+                    c = _clean_concept(raw_c, domain_names)
+                    if c and not (_stems(c) & own_terms) and c.lower() not in {o.lower() for o in others}:
                         others.append(c)
         except Exception:
             continue
@@ -817,6 +844,7 @@ class TestEngine:
         lesson_content: str,
         avoid: Optional[List[str]] = None,
         deadline: Optional[float] = None,
+        avoid_topics: Optional[List[str]] = None,
     ) -> List[Dict]:
         """Generate `count` validated questions of one type.
 
@@ -874,7 +902,9 @@ class TestEngine:
             needed = count - len(accepted)
             logger.warning("Only %d/%d valid '%s' questions after %d attempt(s); adding %d syllabus-based filler",
                            len(accepted), count, q_type, attempts, needed)
-            accepted.extend(_grounded_fallback_questions(q_type, needed, concept_id, domain, avoid=seen))
+            # concepts already used as answers/subjects count too (an MCQ's concept is in its ANSWER, not its text)
+            used = seen + list(avoid_topics or []) + [str(q.get("correct_answer", "")) for q in accepted]
+            accepted.extend(_grounded_fallback_questions(q_type, needed, concept_id, domain, avoid=used))
         return accepted[:count]
 
     def generate_test(
@@ -924,17 +954,19 @@ class TestEngine:
         deadline = t_start + _TIME_BUDGET_S
         questions: List[Dict] = []
         asked: List[str] = []
+        topics: List[str] = []          # answers of earlier questions: concepts already covered
         for q_type, count, marks in self._TYPE_PLAN:
             try:
                 batch = self._generate_questions_of_type(
                     q_type, count, marks, concept_id, domain, lesson_content,
-                    avoid=list(asked), deadline=deadline,
+                    avoid=list(asked), deadline=deadline, avoid_topics=list(topics),
                 )
             except Exception as exc:
                 logger.error("Type '%s' generation crashed: %s", q_type, exc)
-                batch = _grounded_fallback_questions(q_type, count, concept_id, domain, avoid=asked)
+                batch = _grounded_fallback_questions(q_type, count, concept_id, domain, avoid=asked + topics)
             questions.extend(batch)
             asked.extend(q["question"] for q in batch)
+            topics.extend(str(q.get("correct_answer", "")) for q in batch if q["type"] == "mcq")
             if progress:
                 try:
                     progress(q_type, len(batch))

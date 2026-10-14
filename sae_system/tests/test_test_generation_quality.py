@@ -10,6 +10,7 @@ Problems this guards against (all seen in real tests):
 """
 
 import json
+import re
 from types import SimpleNamespace
 
 import pytest
@@ -341,3 +342,100 @@ def test_options_that_differ_by_one_short_but_decisive_word_are_not_called_ident
          "options": ["TCP is connection oriented and reliable", "UDP is connection oriented and reliable",
                      "ICMP carries routing hints only", "ARP resolves hardware addresses"]}
     assert te._structure_problem(q, "mcq") is None
+
+
+# ---------------------------------------------------------------- filler bugs found in the live run
+
+OWN_REAL = ["Customer Journey", "Search Engine Optimization", "Email Campaigns", "Conversion Funnels", "Content Calendars",
+            "Retargeting Basics", "Audience Segmentation", "Brand Voice", "Landing Pages", "Marketing Analytics",
+            "Social Listening", "Lead Nurturing"]
+
+
+@pytest.fixture
+def junky_roadmaps(tmp_path, monkeypatch):
+    """Roadmaps containing what real ones contain: placeholders, bare domain names, snake_case ids."""
+    d = tmp_path / "junk_roadmaps"
+    d.mkdir()
+    own = OWN_REAL[:4] + ["concept4", "ad_budgeting", "digital marketing"] + OWN_REAL[4:]
+    (d / "digital_marketing.json").write_text(json.dumps({"modules": [
+        {"module_id": CONCEPT, "title": "Introduction to Digital Marketing", "concepts": own}]}), encoding="utf-8")
+    (d / "blockchain.json").write_text(json.dumps({"modules": [{"module_id": "b", "title": "B", "concepts": [
+        "Merkle Trees", "concept1", "blockchain", "smart_contract_principles", "Proof of Work", "Consensus Protocols"]}]}), encoding="utf-8")
+    (d / "quantum.json").write_text(json.dumps({"modules": [{"module_id": "q", "title": "Q", "concepts": [
+        "Qubit Entanglement", "concept2", "quantum_gates", "Superposition States", "Topic 3"]}]}), encoding="utf-8")
+    monkeypatch.setattr(te, "_ROADMAP_DIR", d)
+    return d
+
+
+DOMAIN_NAMES = {"digital marketing", "blockchain", "quantum"}
+
+
+@pytest.mark.parametrize("raw", ["concept4", "Concept 12", "topic_3", "item-7", "module1", "blockchain", "Digital Marketing", "", "   ", None, 42])
+def test_placeholders_and_bare_domain_names_are_not_concepts(raw):
+    assert te._clean_concept(raw, DOMAIN_NAMES) is None
+
+
+@pytest.mark.parametrize("raw,expected", [
+    ("ad_budgeting", "Ad budgeting"), ("Bayes_theory", "Bayes theory"), ("market_analysis", "Market analysis"),
+    ("Git", "Git"), ("SVN", "SVN"), ("evm", "evm"), ("Customer Journey", "Customer Journey"),
+])
+def test_real_concepts_are_kept_and_identifiers_become_readable(raw, expected):
+    assert te._clean_concept(raw, DOMAIN_NAMES) == expected
+
+
+def test_the_syllabus_excludes_placeholders_for_this_module_and_for_the_distractor_pool(junky_roadmaps):
+    title, own, others = te._syllabus_for(CONCEPT, DOMAIN)
+    assert "concept4" not in own and "digital marketing" not in [c.lower() for c in own] and "Ad budgeting" in own
+    junk = {"concept1", "concept2", "blockchain", "Topic 3", "smart_contract_principles", "quantum_gates"}
+    assert not junk & set(others)
+    assert {"Merkle Trees", "Smart contract principles", "Quantum gates", "Qubit Entanglement"} <= set(others)
+
+
+def test_filler_options_never_contain_placeholders_or_identifiers(junky_roadmaps):
+    out = te._grounded_fallback_questions("mcq", 4, CONCEPT, DOMAIN)
+    shown = [o for q in out for o in q["options"]]
+    assert not [o for o in shown if "_" in o or o.lower().startswith(("concept", "topic")) or o.lower() == "blockchain"]
+    for q in out:
+        assert q["correct_answer"] in q["options"] and len(set(q["options"])) == 4
+
+
+def _subjects(questions):
+    """The concept each filler question is about (MCQ answer; quoted concept for true/false and short answer)."""
+    out = []
+    for q in questions:
+        if q["type"] == "mcq":
+            out.append(q["correct_answer"])
+        elif q["type"] == "true_false" and q["correct_answer"] == "True":
+            out.append(re.match(r'"([^"]+)"', q["question"]).group(1))
+        elif q["type"] == "short_answer":
+            out.append(re.search(r'"([^"]+)"', q["question"]).group(1))
+    return out
+
+
+def test_filler_does_not_reuse_a_concept_across_question_types(engine, monkeypatch, junky_roadmaps):
+    """The live run asked about 'History of Digital Marketing' as an MCQ answer AND as a true/false subject."""
+    Model(monkeypatch, [ConnectionError("x")] * 6)
+    out = engine.generate_test(CONCEPT, DOMAIN, LESSON)
+    subjects = _subjects(out)
+    assert len(subjects) >= 8 and len(subjects) == len(set(subjects)), subjects
+    assert len({q["question"] for q in out}) == 10
+
+
+def test_concepts_already_asked_as_answers_are_avoided_even_though_they_are_not_in_the_question_text(junky_roadmaps):
+    out = te._grounded_fallback_questions("short_answer", 3, CONCEPT, DOMAIN, avoid=["Which one is a topic covered in X?", "Customer Journey"])
+    assert "Customer Journey" not in {re.search(r'"([^"]+)"', q["question"]).group(1) for q in out}
+
+
+def test_generate_test_passes_earlier_mcq_answers_to_later_filler(engine, monkeypatch, junky_roadmaps):
+    seen = []
+    real = te.TestEngine._generate_questions_of_type
+
+    def spy(self, q_type, count, marks, *a, **kw):
+        seen.append((q_type, list(kw.get("avoid_topics") or [])))
+        return real(self, q_type, count, marks, *a, **kw)
+
+    monkeypatch.setattr(te.TestEngine, "_generate_questions_of_type", spy)
+    Model(monkeypatch, [ConnectionError("x")] * 6)
+    engine.generate_test(CONCEPT, DOMAIN, LESSON)
+    assert [t for t, _ in seen] == ["mcq", "true_false", "short_answer"]
+    assert seen[0][1] == [] and len(seen[1][1]) == 4 and len(seen[2][1]) == 4      # the 4 MCQ answers reach the later types
