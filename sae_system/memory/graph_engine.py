@@ -10,6 +10,8 @@ from typing import Any, Dict, List, Optional
 import networkx as nx
 from dotenv import load_dotenv
 
+from evaluation import perf_trace as _perf
+
 load_dotenv()
 
 logger = logging.getLogger(__name__)
@@ -34,6 +36,18 @@ def _normalize_concept(c) -> str:
     return str(c)
 
 
+# RoadmapAgent derives module ids as title.lower().replace(" ", "_")[:30]
+# (agents/roadmap_agent.py::_precompute_module_inputs), so a long title's id is its 30-char prefix.
+_MODULE_ID_MAX_LEN = 30
+
+
+def _concept_key(c) -> str:
+    """Canonical id form used for concept names AND for matching module ids in
+    prerequisite lists (lowercase, spaces -> underscores, 50-char cap). One
+    function so the two can never be normalized differently."""
+    return _normalize_concept(c).lower().replace(" ", "_")[:50]
+
+
 class KnowledgeGraph:
     """Directed knowledge graph tracking concept mastery for one student.
 
@@ -46,6 +60,14 @@ class KnowledgeGraph:
     """
 
     def __init__(self, student_id: str = "default") -> None:
+        # Constructed ~18 places, often several times per Streamlit rerun, and
+        # each construction reloads the graph from disk (or Neo4j) — timed as
+        # kg.init so the report can count constructions per rerun.
+        with _perf.span("kg.init") as sp:
+            self._init_impl(student_id)
+            sp["backend"] = self._backend
+
+    def _init_impl(self, student_id: str) -> None:
         self._student_id = student_id
         self._persistence_dir = Path("./data/knowledge_graphs")
         self._persistence_dir.mkdir(parents=True, exist_ok=True)
@@ -72,12 +94,14 @@ class KnowledgeGraph:
     # Backend initialisation
     # ------------------------------------------------------------------
 
+    @_perf.timed("neo4j.init")
     def _init_neo4j(self) -> None:
         from neo4j import GraphDatabase
         uri      = os.getenv("NEO4J_URI",      "bolt://localhost:7687")
         user     = os.getenv("NEO4J_USER",     "neo4j")
         password = os.getenv("NEO4J_PASSWORD", "saesystem")
-        self._driver = GraphDatabase.driver(uri, auth=(user, password))
+        # Timing proxy: only session.run() is timed (neo4j.query); all else passes through.
+        self._driver = _perf.wrap_neo4j_driver(GraphDatabase.driver(uri, auth=(user, password)))
         # Create indexes — wrapped individually so one failure doesn't abort init
         for cypher in (
             "CREATE INDEX concept_student IF NOT EXISTS FOR (c:Concept) ON (c.student)",
@@ -138,6 +162,7 @@ class KnowledgeGraph:
     # Persistence (NetworkX only)
     # ------------------------------------------------------------------
 
+    @_perf.timed("kg.save")
     def _save(self) -> None:
         """Serialise the NetworkX graph to the student's JSON file."""
         if self._backend != "networkx":
@@ -170,6 +195,7 @@ class KnowledgeGraph:
         except Exception as exc:
             logger.warning("KnowledgeGraph _save failed for %s: %s", self._student_id, exc)
 
+    @_perf.timed("kg.load")
     def _load(self) -> None:
         """Load the student's graph from JSON. Silent no-op if file missing."""
         if not self._persistence_file.exists():
@@ -272,7 +298,11 @@ class KnowledgeGraph:
 
     def update_mastery(self, concept_id: str, score: float) -> None:
         """Update mastery for a concept (clamped 0–1). Always persists."""
+        from evaluation.event_log import log_event, EVT_KNOWLEDGE_GRAPH_UPDATE
+
         score = max(0.0, min(1.0, score))
+        mastery_before = self.get_mastery(concept_id)
+
         if self._backend == "networkx":
             if concept_id not in self._graph:
                 self._graph.add_node(
@@ -296,6 +326,15 @@ class KnowledgeGraph:
                     cid=concept_id, sid=self._student_id,
                     score=score, ts=datetime.utcnow().isoformat(),
                 )
+
+        log_event(
+            EVT_KNOWLEDGE_GRAPH_UPDATE,
+            student_id=self._student_id,
+            concept_id=concept_id,
+            mastery_before=round(mastery_before, 4),
+            mastery_after=round(score, 4),
+            delta=round(score - mastery_before, 4),
+        )
 
     def get_mastery(self, concept_id: str) -> float:
         if self._backend == "networkx":
@@ -410,12 +449,14 @@ class KnowledgeGraph:
 
         # Step 0 — pre-build module_id → [clean_concept_id] lookup before any loop
         module_concepts: Dict[str, List[str]] = {}
+        # normalised module_id -> raw module_id, so a prerequisite written as a
+        # title ("Supervised Learning") still finds module "supervised_learning".
+        # module_concepts stays keyed by the raw id: Steps 1-2 read it that way.
+        module_by_key: Dict[str, str] = {}
         for mod in modules:
             mid = mod.get("module_id", "")
-            module_concepts[mid] = [
-                _normalize_concept(c).lower().replace(" ", "_")[:50]
-                for c in mod.get("concepts", [])
-            ]
+            module_concepts[mid] = [_concept_key(c) for c in mod.get("concepts", [])]
+            module_by_key.setdefault(_concept_key(mid), mid)
 
         # Step 1 — add all nodes (caller owns the single _save)
         for mod in modules:
@@ -450,9 +491,23 @@ class KnowledgeGraph:
 
             # Rule 3: explicit module-level prerequisites
             for prereq_mid in mod.get("prerequisites", []):
-                prereq_concepts = module_concepts.get(prereq_mid, [])
+                # exact id first (unchanged behaviour), then the normalised form
+                # A prerequisite written as a long TITLE normalises to more than 30 chars, but
+                # that module's id was cut to 30 — so try the 30-char prefix as well.
+                key = _concept_key(prereq_mid)
+                resolved = (
+                    prereq_mid
+                    if isinstance(prereq_mid, str) and prereq_mid in module_concepts
+                    else module_by_key.get(key) or module_by_key.get(key[:_MODULE_ID_MAX_LEN])
+                )
+                prereq_concepts = module_concepts.get(resolved, []) if resolved is not None else []
                 if prereq_concepts:
                     self._add_edge_safe(prereq_concepts[-1], cur_concepts[0])
+                else:
+                    logger.info(
+                        "Prerequisite %r of module %r is not a module with concepts in this "
+                        "roadmap — no edge created", prereq_mid, mid,
+                    )
 
             prev_concepts = cur_concepts
 
