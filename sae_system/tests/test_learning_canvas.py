@@ -6,6 +6,9 @@ separating the view model from rendering, Step 22).
 
 import os
 import sys
+from pathlib import Path
+
+import pytest
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _ROOT not in sys.path:
@@ -55,7 +58,19 @@ def test_status_locked_when_zero_mastery_and_prereqs_not_met():
 _REAL_STUDENT = "699c235c-3ce7-4a43-b391-ea04b6559579"
 _REAL_DOMAIN = "Machine Learning"
 
+# KNOWN GAP (TODO): the four tests below read one real student's knowledge graph from the git-ignored
+# sae_system/data/ directory. A fresh clone has no such data, so they are SKIPPED there with this reason
+# (they still run, and must pass, on a machine that has the data). This is not a new bug. Proper fix: build
+# the graph from a small fixture roadmap inside the test, as tests/test_graph_prereq_matching.py does, and
+# drop the dependency on any real student's id.
+_needs_real_student_data = pytest.mark.skipif(
+    not (Path(_ROOT) / "data" / "knowledge_graphs" / f"{_REAL_STUDENT}.json").exists(),
+    reason="TODO known gap: needs a real student's knowledge graph in the git-ignored data/ dir "
+           "(absent on a fresh clone); rewrite to use a fixture roadmap",
+)
 
+
+@_needs_real_student_data
 def test_canvas_nodes_all_exist_in_knowledge_graph():
     from memory.graph_engine import KnowledgeGraph
     canvas = build_learning_canvas(_REAL_STUDENT, _REAL_DOMAIN)
@@ -83,6 +98,7 @@ def test_canvas_mastery_matches_stored_progress():
         assert node["mastery"] == graph.get_mastery(node["id"])
 
 
+@_needs_real_student_data
 def test_canvas_current_concept_matches_passed_argument():
     canvas = build_learning_canvas(_REAL_STUDENT, _REAL_DOMAIN, current_module_id="supervised_learning")
     assert canvas["current_concept_id"] == "supervised_learning"
@@ -127,6 +143,7 @@ def test_canvas_empty_domain_string():
     assert canvas["insufficient_data"] is True
 
 
+@_needs_real_student_data
 def test_canvas_no_current_module_id_still_builds():
     canvas = build_learning_canvas(_REAL_STUDENT, _REAL_DOMAIN)  # no current_module_id passed
     assert canvas["insufficient_data"] is False
@@ -143,6 +160,7 @@ def test_get_concept_detail_returns_none_for_unknown_concept():
     assert get_concept_detail(canvas, "definitely_not_a_real_concept_id") is None
 
 
+@_needs_real_student_data
 def test_get_concept_detail_includes_prerequisite_details():
     canvas = build_learning_canvas(_REAL_STUDENT, _REAL_DOMAIN, current_module_id="supervised_learning")
     detail = get_concept_detail(canvas, "supervised_learning")
