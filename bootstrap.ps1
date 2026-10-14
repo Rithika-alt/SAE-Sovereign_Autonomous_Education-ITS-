@@ -57,12 +57,12 @@ if (-not (Test-Command "ollama")) {
 }
 
 Write-Host "Starting the Docker stack (Postgres, Redis, Neo4j, dashboard)..."
-docker compose -f (Join-Path $PSScriptRoot "docker-compose.yml") up -d
+docker compose --env-file $envPath -f (Join-Path $PSScriptRoot "docker-compose.yml") up -d
 
 Write-Host ""
 Write-Host "== Done ==" -ForegroundColor Green
 Write-Host "Dashboard:     http://localhost:8501"
-Write-Host "Neo4j browser: http://localhost:7474  (neo4j / saesystem)"
+Write-Host "Neo4j browser: http://localhost:7474  (neo4j / the NEO4J_PASSWORD from sae_system/.env)"
 Write-Host ""
 Write-Host "To move this student to another machine: copy the sae_system\data\ folder"
 Write-Host "and sae_system\.env, then run this script there."

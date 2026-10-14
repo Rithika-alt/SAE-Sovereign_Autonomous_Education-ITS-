@@ -49,12 +49,12 @@ else
 fi
 
 echo "Starting the Docker stack (Postgres, Redis, Neo4j, dashboard)..."
-docker compose -f "$SCRIPT_DIR/docker-compose.yml" up -d
+docker compose --env-file "$ENV_PATH" -f "$SCRIPT_DIR/docker-compose.yml" up -d
 
 echo ""
 echo "== Done =="
 echo "Dashboard:     http://localhost:8501"
-echo "Neo4j browser: http://localhost:7474  (neo4j / saesystem)"
+echo "Neo4j browser: http://localhost:7474  (neo4j / the NEO4J_PASSWORD from sae_system/.env)"
 echo ""
 echo "To move this student to another machine: copy the sae_system/data/ folder"
 echo "and sae_system/.env, then run this script there."

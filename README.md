@@ -277,10 +277,13 @@ still locked.
 From the project root (`SAE_SYSTEM/`):
 
 ```bash
-docker-compose up -d
+docker compose --env-file sae_system/.env up -d
 ```
 
-This starts PostgreSQL, Redis, Neo4j, and the Streamlit dashboard together.
+This starts PostgreSQL, Redis, Neo4j, and the Streamlit dashboard together. Passwords are not stored in
+`docker-compose.yml`: it reads `POSTGRES_PASSWORD` and `NEO4J_PASSWORD` from `sae_system/.env` (copy
+`sae_system/.env.example` and set your own values; `--env-file` is needed because Compose only auto-reads a
+`.env` next to the compose file) and refuses to start if either is missing.
 
 #### Access the Neo4j Browser
 
@@ -289,7 +292,7 @@ Open **http://localhost:7474** in your browser.
 | Field    | Value       |
 |----------|-------------|
 | Username | `neo4j`     |
-| Password | `saesystem` |
+| Password | the `NEO4J_PASSWORD` you set in `sae_system/.env` |
 
 To see all concept nodes after generating a roadmap:
 
@@ -306,7 +309,7 @@ To switch to Neo4j, edit `sae_system/.env`:
 USE_NEO4J=true
 NEO4J_URI=bolt://localhost:7687
 NEO4J_USER=neo4j
-NEO4J_PASSWORD=saesystem
+NEO4J_PASSWORD=<the same value you set in .env for the Docker container>
 ```
 
 Then restart the app.
@@ -314,7 +317,7 @@ Then restart the app.
 #### Stop containers
 
 ```bash
-docker-compose down
+docker compose --env-file sae_system/.env down
 ```
 
 #### Data persistence
@@ -357,7 +360,7 @@ issues below with a specific suggested fix.
 | "Model not found" | Configured model not pulled | `ollama pull <model>` (the exact name `check_environment.py` reports, read from `config.py`) |
 | Dashboard won't start / port in use | Something else is already on port 8501 | `streamlit run dashboard/app.py --server.port 8502` (or free port 8501) |
 | Missing lesson/roadmap data | Normal on a fresh install | Generated automatically the first time you pick a domain (needs Ollama running); or run `scripts/seed_demo.py` for an immediate login |
-| Postgres/Redis/Neo4j "not reachable" | These are all optional | Safe to ignore — the app falls back to local JSON files / in-memory cache / NetworkX automatically. Only relevant if you specifically want persistent Postgres or the Neo4j browser (see `docker-compose up -d`) |
+| Postgres/Redis/Neo4j "not reachable" | These are all optional | Safe to ignore — the app falls back to local JSON files / in-memory cache / NetworkX automatically. Only relevant if you specifically want persistent Postgres or the Neo4j browser (see `docker compose --env-file sae_system/.env up -d`) |
 | Slow graph operations, "Neo4j unavailable ... falling back" spam in logs | `USE_NEO4J=true` in `.env` but no Neo4j running | Set `USE_NEO4J=false` in `.env` (the default) unless you're actually running Neo4j |
 | `SovereigntyError` on startup | `OLLAMA_BASE_URL` in `.env` points somewhere non-local | Set it back to `http://127.0.0.1:11434` (or `http://localhost:11434`) — SAE will never call a hosted/external LLM provider, by design |
 | Every model call seems ~2 s slower than it should be (Windows) | `localhost` resolves to `::1` first, Ollama listens on IPv4 only, so each new connection waits ~2 s before falling back (measured: 2050 ms vs 5 ms) | Use `OLLAMA_BASE_URL=http://127.0.0.1:11434` in `.env` |
