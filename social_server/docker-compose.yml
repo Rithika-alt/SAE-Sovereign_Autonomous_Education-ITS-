@@ -1,0 +1,50 @@
+version: "3.9"
+
+# This is the platform operator's stack — one deployment serves every
+# student. It is entirely separate from each student's local
+# ../docker-compose.yml (which stays 100% local: their own Postgres, their
+# own Ollama, their own progress/lesson data). Nothing here ever talks to
+# a student's local services directly; students' apps call this API over
+# the internet at SOCIAL_SERVER_URL.
+
+# Credentials come from the environment, never from this file: Docker Compose reads social_server/.env
+# (git-ignored; start from .env.example). `docker compose up` stops with a clear message if
+# SOCIAL_DB_PASSWORD is not set. Use URL-safe characters (e.g. `openssl rand -hex 24`) because the same
+# value is embedded in the connection URL below. POSTGRES_PASSWORD only takes effect when the database is
+# first created; to change it later run ALTER USER sae_social_user WITH PASSWORD '...' inside the
+# sae_social_postgres container as well, then update social_server/.env.
+
+services:
+  social_postgres:
+    image: postgres:16-alpine
+    container_name: sae_social_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       sae_social
+      POSTGRES_USER:     sae_social_user
+      POSTGRES_PASSWORD: "${SOCIAL_DB_PASSWORD:?set SOCIAL_DB_PASSWORD in social_server/.env - copy .env.example}"
+    volumes:
+      - social_postgres_data:/var/lib/postgresql/data
+      - ./init_db:/docker-entrypoint-initdb.d
+    ports:
+      - "5433:5432"   # different host port than a student's local Postgres (5432)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sae_social_user -d sae_social"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  social_api:
+    build: .
+    container_name: sae_social_api
+    restart: unless-stopped
+    depends_on:
+      social_postgres:
+        condition: service_healthy
+    environment:
+      SOCIAL_DATABASE_URL: "postgresql://sae_social_user:${SOCIAL_DB_PASSWORD:?set SOCIAL_DB_PASSWORD in social_server/.env - copy .env.example}@social_postgres:5432/sae_social"
+    ports:
+      - "8000:8000"
+
+volumes:
+  social_postgres_data:
